@@ -9,6 +9,9 @@
 * Das Strichmännchen fällt aus der "bunten Welt" zurück auf das Papier und liegt anders dort, als zu Beginn.
 
 # Elemente in der "bunten Welt"
+* Strichmännchen vielleicht ähnlich wie:
+	* <http://www.youtube.com/watch?v=RJhG_Sj5kFQ>
+	* <http://www.youtube.com/watch?v=CSbcmacedTI>
 * Windhose (fog + warp + turbolence)
 * 20-seitiger halb-transparenter Würfel
 * eine unmögliche Treppe (zu aufwendig?)
