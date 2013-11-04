@@ -6,7 +6,8 @@
 
 * ... insert geilen shice here ...
 
-* Das Strichmännchen fällt aus der "bunten Welt" zurück auf das Papier und liegt anders dort, als zu Beginn.
+* Das Strichmännchen fällt aus der "bunten Welt" zurück "in" das Papier und liegt anders dort, als zu Beginn.
+* Außerdem ist ein Würfel mit aus der "bunten Welt" gekommen, der allerdings nicht "ins Papier" übergeht, sondern materialisiert auf dem Tisch liegt
 
 # Elemente in der "bunten Welt"
 * Strichmännchen vielleicht ähnlich wie:
