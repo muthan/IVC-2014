@@ -17,16 +17,20 @@
 * Außerdem ist ein Würfel mit aus der "bunten Welt" gekommen, der allerdings nicht "ins Papier" übergeht, sondern materialisiert auf dem Tisch liegt
 
 # Elemente in  Wonderland
-* Clone vielleicht ähnlich wie:
+
+## Todo
+* Clone vielleicht ähnlich wie [Thorben]:
 	* <http://www.youtube.com/watch?v=RJhG_Sj5kFQ>
 	* <http://www.youtube.com/watch?v=CSbcmacedTI>
-* Windhose (fog + warp + turbolence) [Kai]
-* 20-seitiger halb-transparenter Würfel [Kai]
 * eine unmögliche Treppe (zu aufwendig?)
 * Säulen and fancy stuff [Felix]
 * Wasserfall, der von unten nach oben fällt
-
+* Tisch mit Blatt Papier [Kai]
 * ... insert geilen shice here ...
+
+## Done
+* Windhose (fog + warp + turbolence) [Kai]
+* 20-seitiger halb-transparenter Würfel [Kai]
 
 # Geile Links
 * <http://www.f-lohmueller.de/>
