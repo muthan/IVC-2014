@@ -53,9 +53,7 @@
   union {
     object{Obj translate<X, Y, Z>}
     object{Obj translate<X + Size, Y, Z>}
-    object{Obj translate<X + Size/2, Y + Size, Z>}
-    object{Obj translate<X, Y, Z + Size>}
-    object{Obj translate<X + Size, Y, Z + Size>}
-    object{Obj translate<X + Size/2, Y + Size, Z + Size>}
+    object{Obj translate<X + Size/2, Y + Size, Z + Size/2>}
+    object{Obj translate<X + Size/2, Y, Z + Size>}
   }
 #end
