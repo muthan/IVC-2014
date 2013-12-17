@@ -5,7 +5,7 @@
 #include "glass.inc"
 #include "textures.inc"
 
-background { Black }
+background { White }
 
 camera {
   location <4, 5, -20>
@@ -21,12 +21,14 @@ light_source {
 
 #declare headR = 0.75;
 #declare bodyR = 0.25;
-#declare limbR = 0.2;
+#declare limbR = 0.23;
+
+
 //kopf
 #declare head =
   sphere{
-    < 0,0, 0>,KopfR
-    texture{pigment{color Orange}}
+    < 0,0, 0>,headR
+    texture{pigment{color Grey}}
     }
 
 
@@ -35,25 +37,74 @@ light_source {
   sphere_sweep {
       linear_spline // spline type
       2, //7 number of <x,y,z> points, radius
-      <0.0, 3.00,0.0>, bodyR
+      <0.0, 2.00,0.0>, bodyR
       < 0.00, 0.0, 0>, bodyR
       texture{
-            pigment{ color Orange}
+            pigment{ color Grey}
             finish { phong 1}
             } // end of texture
       scale<1,1,1>
       } // end of sphere sweep
 
 //glied
-:#declare limb =
+#declare limb =
   sphere_sweep {
         linear_spline // spline type
         2, //7 number of <x,y,z> points, radius
         <0.0, 0.0,0.0>, limbR
-        < 0.50, 0.5, 0>, limbR
+        < 1, 0.0, 0>, limbR
         texture{
-            pigment{ color Orange}
+            pigment{ color Grey}
             finish { phong 1}
             } // end of texture
         scale<1,1,1>
         } // end of sphere sweep
+
+
+#declare man =
+  union {
+      object {head translate <0.0, 4.0, 0.0>}
+      object {body translate <0.0, 2.0, 0.0>}
+      
+      //left arm
+      object {limb
+        rotate <0,0,20>
+        translate <0.0, 2.8, 0.0>
+      }
+      object {limb
+        rotate <0,0,70>
+        translate <1,3.2, 0.0>
+      }
+       
+            
+      //right arm
+      object {limb
+        rotate <0,180,-20>
+        translate <0.0, 2.8, 0.0>
+      }
+      object {limb
+        rotate <0,180,-70>
+        translate <-1,3.2, 0.0>
+      }
+
+      //left knee
+      object {limb
+        rotate <0,0,-70>
+        translate <0,2,0>
+      }
+      object {limb
+        rotate <0,0,-75>
+        translate <0.35,1,0>
+      }
+      //right knee
+      object {limb
+        rotate <0,180,70>
+        translate <0,2,0>
+      }
+      object {limb
+        rotate <0,180,75>
+        translate <-0.35,1,0>
+      }
+    }
+
+  object{man translate<0.0,0.0,0.0>}

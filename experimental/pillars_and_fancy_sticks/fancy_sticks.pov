@@ -4,6 +4,7 @@
 #include "consts.inc"
 #include "glass.inc"
 #include "textures.inc"
+#include "fancy_pillar.inc"
 
 background { Black }
 
@@ -37,24 +38,6 @@ background { Black }
 #declare Random_3 = seed (9912);
 //------------------------------------
 
-//------ Object declarations ---------
-#declare Fancy_pillar = 
-cone { CONE_1_LOC_START, 0.2, CONE_1_LOC_END, 0.15
-        texture {
-          pigment { color rgb< 0.5, 0.5, 0>*1.2 }
-        } 
-     }
-
-#declare Fancy_pillar_top = object{
-  Icosahedron
-  pigment { Blue filter 0.8 }
-  hollow
-  interior{ ior Diamond_Ior } //Plexiglas_Ior
-  finish { ambient rgb <0.4,0.2,0.5> }
-  rotate <0,-90*clock, 0>
-  translate CONE_1_TOPPING_LOC_CENTER
-}
-
 #declare Ball =
 sphere{<0,0,0>,2
        texture{pigment{checker Blue, Orange}
@@ -66,6 +49,10 @@ sphere{<0,0,0>,2
        }
 //------------------------------------
 
+#declare Fancy_pillar = union{
+  object{Fancy_Pillar_basic}
+  object{Fancy_Pillar_basic_top pigment{color rgb< rand(Random_1), rand(Random_2), rand(Random_3)>}  }
+}
 
 
 camera {
@@ -79,17 +66,7 @@ light_source {
 } 
 
 
-plane { y , 0
-    pigment {
-        White
-        //checker colour Black colour White
-        //scale 5
-    }
-    finish {
-        ambient 0.2
-        diffuse 0.8
-    }
-}
+
 
 box {
     <0, 0, 0> <BOX_WIDTH, BOX_HEIGHT, BOX_LENGTH>
@@ -98,9 +75,9 @@ box {
 
 #declare Z_delay_cone = 0;     // start
 #while (Z_delay_cone < BOX_LENGTH)
- object{Fancy_pillar translate <AMBIENT_BORDER_DISTANCE,0,0.5 + Z_delay_cone>}
+ object{Fancy_Pillar_basic translate <AMBIENT_BORDER_DISTANCE,0,0.5 + Z_delay_cone>}
 
- object{Fancy_pillar_top translate <AMBIENT_BORDER_DISTANCE,0,0.5 + Z_delay_cone>pigment{color rgb< rand(Random_1
+ object{Fancy_Pillar_basic_top translate <AMBIENT_BORDER_DISTANCE,0,0.5 + Z_delay_cone>pigment{color rgb< rand(Random_1
 ), rand(Random_2), rand(Random_3)> }}
 
  #declare Z_delay_cone = Z_delay_cone + CONE_NEIGHBOUR_DISTANCE;  //next Nr
@@ -161,7 +138,5 @@ union{
   #end // -------- end of loop
  }
 
-
-
-
+ object{Fancy_pillar}
 
