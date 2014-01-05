@@ -1,9 +1,9 @@
 #include "colors.inc"
-#include "../objects/pencil.inc"
-#include "../objects/table.inc"
-#include "../objects/desklamp.inc"
-#include "../experimental/spline/spline_macro.inc"
-#include "../objects/tornado.inc"
+#include "../../objects/pencil.inc"
+#include "../../objects/table.inc"
+#include "../../objects/desklamp.inc"
+#include "../../experimental/spline/spline_macro.inc"
+#include "../../objects/tornado.inc"
 
 background { Black }
 
