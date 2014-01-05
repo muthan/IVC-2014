@@ -22,7 +22,7 @@ light_source {
 #declare headR = 0.75;
 #declare bodyR = 0.25;
 #declare limbR = 0.23;
-#declare ampleg = 40;
+#declare ampleg = 70;
 #declare amparm = 20;
 
 
@@ -74,7 +74,7 @@ light_source {
         translate <0.0, 2.8, 0.0>
       }
       object {limb
-        rotate <0,0,(amparm*sin(clock*2*pi))+70>
+        rotate <0,0,(amparm*sin(25*clock*2*pi))+70>
         translate <1,3.2, 0.0>
       }
        
@@ -85,19 +85,19 @@ light_source {
         translate <0.0, 2.8, 0.0>
       }
       object {limb
-        rotate <0,180,(amparm*sin(clock*2*pi))-70>
+        rotate <0,180,(amparm*sin(25*clock*2*pi))-70>
         translate <-1,3.2, 0.0>
       }
       
       //left leg
       object{body
-        rotate <ampleg*-sin(2*clock*2*pi),0,-195>
+        rotate <ampleg*-sin(45*clock*2*pi),0,-195>
         translate <0,2,0>
       }
 
       // right leg
       object{body
-        rotate <ampleg*sin(2*clock*2*pi),0,195>
+        rotate <ampleg*sin(45*clock*2*pi),0,195>
         translate <0,2,0>
       }
 
