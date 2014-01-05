@@ -15,14 +15,14 @@ global_settings{assumed_gamma 1.0}
 #include "math.inc"
 #include "transforms.inc"
 
-#declare Tornado = cylinder{ <0,0,0>,<0,100,0>,1.5 
+#declare Tornado = cone{ <0,0,0>,0.5,<0,10,0>,1.5 
         pigment { rgbt 1 } 
         hollow   
 
        interior{ //---------------------
           media{ scattering{ 1, <1,1,1>  
                              extinction  2.5 } 
-                 absorption rgb< 0.91, 0.85, 0.85>*2
+                 absorption rgb< 0.61, 0.85, 0.85>*2
                  // density 1
                  density{ spiral2 10
                           turbulence 0.20

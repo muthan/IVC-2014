@@ -56,7 +56,7 @@ plane{ <0,1,0>, 0
 
 // scattering media sample "dust devil"
 
-cylinder{ <0,0,0>,<0,100,0>,1.5 
+cone{ <0,0,0>,0.5, <0,50,0>,1.5 
         pigment { rgbt 1 } 
         hollow   
 

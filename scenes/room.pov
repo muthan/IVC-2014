@@ -2,6 +2,7 @@
 #include "../objects/pencil.inc"
 #include "../objects/table.inc"
 #include "../objects/desklamp.inc"
+#include "../objects/tornado.inc"
 
 background { Black }
 
@@ -37,4 +38,10 @@ object { desk_lamp
         scale 0.01
         rotate<0,-50,0>
         translate <0.3,0.5,0.3>
+}
+
+object { Tornado
+        scale 0.05
+        rotate<0,-50,0>
+        translate <-0.5,0.5,0>
 }
