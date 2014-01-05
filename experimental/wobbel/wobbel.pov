@@ -18,6 +18,7 @@
 #declare Camera_Look_At  = < 5.00, 5.00,  0.00> ;
 #declare Camera_Angle    =  75 ;
  
+background {White}
 
 //--------------------------------------------------------------------------
 camera{ // ultra_wide_angle // orthographic 
@@ -75,7 +76,7 @@ union {
 } // end of union
 
 
-object{PositionAsTriangle_3D(Wobbel, 0, 0, 0, 10) }
+//object{PositionAsTriangle_3D(Wobbel, 0, 0, 0, 10) }
 object{Wobbel scale 10}
 
 
