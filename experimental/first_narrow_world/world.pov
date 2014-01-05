@@ -8,6 +8,7 @@
 #include "/home/flx/workspace/povray/IVC/experimental/fancy_stick/fancy_pillar.inc"
 #include "/home/flx/workspace/povray/IVC/experimental/checked_ball/checked_ball.inc"
 #include "/home/flx/workspace/povray/IVC/experimental/spline/spline_macro.inc"
+#include "/home/flx/workspace/povray/IVC/experimental/maenchen/maenchen-Panik.inc"
 
 /** declarations: */
 
@@ -32,9 +33,12 @@ plane {
 #declare BOX_COLOR = color rgb< 0.1, 0.2, 0.4>;
 
 
+
+//camery spline has no distortion
+#declare cam_spline = spline{CurvedSpline(BOX_WIDTH, BOX_HEIGHT + 10, BOX_LENGTH -20, 0)}
 camera {
-  location <-300, 400, -300>
-  look_at <0, 0, 0> 
+  location cam_spline(clock * 0.8)
+  look_at cam_spline(clock * 0.8 + 0.2)
   angle 50
 }
 
@@ -81,7 +85,7 @@ box {
 #declare primary_street = spline{CurvedSpline(BOX_WIDTH, BOX_HEIGHT, BOX_LENGTH, Street_x_Distortion)}
 
 // move the object "ball" along the spline 
-object {Ball Spline_Trans(primary_street, clock, y, 0.1, 0.5)}
+object {man Spline_Trans(primary_street, clock, y, 0.1, 0.5)}
 
 // visualize our street (spline)
 union{
