@@ -9,10 +9,16 @@
 #include "/home/flx/workspace/povray/IVC/experimental/checked_ball/checked_ball.inc"
 #include "/home/flx/workspace/povray/IVC/experimental/spline/spline_macro.inc"
 
-background { Black }
-
 /** declarations: */
 
+// The ground. 
+plane {
+  y,
+  0 
+  pigment { White }
+}
+
+// one box serves as relative offset for all other boxes / objects
 #declare BOX_HEIGHT = 40;
 #declare BOX_WIDTH = 40;
 #declare BOX_LENGTH = 500;
@@ -23,26 +29,32 @@ background { Black }
 #declare BALL_NEIGHBOUR_DISTANCE = 8;
 
 
-#declare BOX_COLOR = color rgb< 0.1, 0.6, 0.4>;
+#declare BOX_COLOR = color rgb< 0.1, 0.2, 0.4>;
 
 
 camera {
-  location <-200, 200, -200>
+  location <-300, 400, -300>
   look_at <0, 0, 0> 
-  angle 36
+  angle 50
 }
 
 light_source {
     <1000, 1000, 0> White
 } 
 
-
-
-
+//the main box
 box {
     <0, 0, 0> <BOX_WIDTH, BOX_HEIGHT, BOX_LENGTH>
     pigment { BOX_COLOR }
 }
+
+box {
+    <0, 0, -BOX_WIDTH> <BOX_WIDTH / 2, BOX_HEIGHT - 15, BOX_LENGTH - 0.3* BOX_LENGTH>
+    pigment { BOX_COLOR }
+    rotate<0,90,0>
+}
+
+
 
 #declare Z_delay_cone = 0;     // start
 #while (Z_delay_cone < BOX_LENGTH)
@@ -66,24 +78,25 @@ box {
 #declare Wire_Radius = 0.4;// radius
 #declare Street_x_Distortion = 3;
 // spline:
-#declare My_spline = spline{CurvedSpline(BOX_WIDTH, BOX_HEIGHT, BOX_LENGTH, Street_x_Distortion)}
+#declare primary_street = spline{CurvedSpline(BOX_WIDTH, BOX_HEIGHT, BOX_LENGTH, Street_x_Distortion)}
 
-object {Ball Spline_Trans(My_spline, clock, y, 0.1, 0.5)}
+// move the object "ball" along the spline 
+object {Ball Spline_Trans(primary_street, clock, y, 0.1, 0.5)}
 
+// visualize our street (spline)
 union{
-  #local Nr = 0;     // start
-  #local EndNr = 1;  // end
-  #while (Nr <= EndNr)
+  #local i = 0;     // start
+  #local end_index = 1;  // end
+  #while (i <= end_index)
     sphere{ <0,0,0>, Wire_Radius
 
       pigment{ color rgb<1,0.3,0>}
-      translate  My_spline
+      translate  primary_street
 
 
-(Nr)
+(i)
     } // end of sphere
-    #local Nr = Nr + 0.001;
-    #declare Street_x_Distortion = Street_x_Distortion + 5;
+    #local i = i + 0.001;
   #end // -------- end of loop
  }
 
