@@ -30,23 +30,27 @@ light_source {
 #declare head =
   sphere{
     < 0,0, 0>,headR
-    texture{pigment{color Grey}}
+    texture{
+            pigment{color Grey}
+            finish{phong 1}
     }
+    
+  }
 
 
 //koerper
 #declare  body =  
   sphere_sweep {
-      linear_spline // spline type
-      2, //7 number of <x,y,z> points, radius
+      linear_spline 
+      2, 
       <0.0, 0.00,0.0>, bodyR
       < 0.00, 2.0, 0>, bodyR
       texture{
             pigment{ color Grey}
             finish { phong 1}
-            } // end of texture
+            } 
       scale<1,1,1>
-      } // end of sphere sweep
+      }
 
 //glied
 #declare limb =
