@@ -4,8 +4,10 @@
 #include "consts.inc"
 #include "glass.inc"
 #include "textures.inc"
+#include "transforms.inc"
 #include "/home/flx/workspace/povray/IVC/experimental/fancy_stick/fancy_pillar.inc"
 #include "/home/flx/workspace/povray/IVC/experimental/checked_ball/checked_ball.inc"
+#include "/home/flx/workspace/povray/IVC/experimental/spline/spline_macro.inc"
 
 background { Black }
 
@@ -64,31 +66,9 @@ box {
 #declare Wire_Radius = 0.4;// radius
 #declare Street_x_Distortion = 3;
 // spline:
-#declare My_spline =
-spline { natural_spline
-    0.00, < (BOX_WIDTH / 2) + Street_x_Distortion, 0.0, 0.0>,
-    0.05, < (BOX_WIDTH / 2) - Street_x_Distortion, 10.0, 0.0>,
-    0.10, < (BOX_WIDTH / 2) - Street_x_Distortion, 25.0, 0.0>,
-    0.15, < (BOX_WIDTH / 2) + Street_x_Distortion, 40.0, 0.0>,
-    0.20, < (BOX_WIDTH / 2) + Street_x_Distortion, 40.0, 12.0>,
-    0.25, < (BOX_WIDTH / 2) + Street_x_Distortion, 40.0, 28.0>,
-    0.30, < (BOX_WIDTH / 2) - Street_x_Distortion, 40.0, 50.0>,
-    0.35, < (BOX_WIDTH / 2) - Street_x_Distortion, 40.0, 70.0>,
-    0.40, < (BOX_WIDTH / 2) + Street_x_Distortion, 40.0, 92.0>,
-    0.45, < (BOX_WIDTH / 2) - Street_x_Distortion, 40.0, 120.0>,
-    0.50, < (BOX_WIDTH / 2) - Street_x_Distortion, 40.0, 142.0>, 
-    0.55, < (BOX_WIDTH / 2) + Street_x_Distortion, 40.0, 190.0>,
-    0.60, < (BOX_WIDTH / 2) - Street_x_Distortion, 40.0, 220.0>,
-    0.65, < (BOX_WIDTH / 2) + Street_x_Distortion, 40.0, 232.0>,
-    0.70, < (BOX_WIDTH / 2) + Street_x_Distortion, 40.0, 260.0>,
-    0.75, < (BOX_WIDTH / 2) + Street_x_Distortion, 40.0, 280.0>,
-    0.80, < (BOX_WIDTH / 2) - Street_x_Distortion, 40.0, 295.0>,
-    0.85, < (BOX_WIDTH / 2) + Street_x_Distortion, 40.0, 300.0>,
-    0.90, < (BOX_WIDTH / 2) - Street_x_Distortion, 40.0, 340.0>,
-    0.95, < (BOX_WIDTH / 2) + Street_x_Distortion, 40.0, 370.0>,
-    1.00, < (BOX_WIDTH / 2) - Street_x_Distortion, 40.0, 400.0>
+#declare My_spline = spline{CurvedSpline(BOX_WIDTH, BOX_HEIGHT, BOX_LENGTH, Street_x_Distortion)}
 
-} 
+object {Ball Spline_Trans(My_spline, clock, y, 0.1, 0.5)}
 
 union{
   #local Nr = 0;     // start
@@ -106,5 +86,7 @@ union{
     #declare Street_x_Distortion = Street_x_Distortion + 5;
   #end // -------- end of loop
  }
+
+
 
 
