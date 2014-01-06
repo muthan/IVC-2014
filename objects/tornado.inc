@@ -43,15 +43,20 @@ global_settings{assumed_gamma 1.0}
                                 [0.50 rgb 0.20] // 
                                 [0.80 rgb 1.00] // 
                                 [1.00 rgb 0.50] // center 
-                              } // end color_map  
+                              } 
                      scale<1,2,1>
-                     } // end of density 2
+                     } 
                  
-               } // end of media ----------------------------
-            } // ------------------ end of interior
+               }
+            } 
  
  scale <1,1,1> 
  //rotate<0,0,-20>
  rotate y*360*clock
+ translate <   0.00, 0.10, 0.00> 
+}
+
+#declare Tornado_clean = cylinder{ <0,0,0>,<0,0.5,0>,0.5 
+        pigment { rgb 1 }  
  translate <   0.00, 0.10, 0.00> 
 }

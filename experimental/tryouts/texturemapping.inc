@@ -24,6 +24,7 @@ camera{ // ultra_wide_angle // orthographic
 background {White}
 
 light_source {
+  
     <1000, 1000, 0> White
 }
 
@@ -48,9 +49,9 @@ material{
         [0.0 pigment{Inner_Color}]
         [0.3 pigment{Outer_Color}]
         [1.0 Opaque_Texture ]
-       } // end texture_map
-     }// end texture
-  }// end material --------------------
+       } 
+     }
+  }
 
 #declare Surface_Material2  =
 material{
@@ -59,9 +60,9 @@ material{
       texture_map {
         [0.0 pigment{Inner_Color}]
         [0.3 pigment{Outer_Color}]
-       } // end texture_map
-     }// end texture
-  }// end material --------------------
+       } 
+     }
+  }
 
 #declare Running_Loop = 
 torus{ 5.0, 1.0
@@ -73,9 +74,6 @@ torus{ 5.0, 1.0
      } //------------------------------
 
 
-object { Running_Loop}
-
-
 #declare Running_Loop2 = 
 torus{ 5.0, 1.0
        translate<-5,-1,0>
@@ -85,4 +83,3 @@ torus{ 5.0, 1.0
         rotate<90, 0,0>
      } //------------------------------
 
-object { Running_Loop2}
