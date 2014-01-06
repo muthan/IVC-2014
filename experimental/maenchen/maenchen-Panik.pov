@@ -14,7 +14,7 @@ camera {
 }
 
 light_source {
-	<1000, 1000, 0> White
+  <1000, 1000, 0> White
 }
 
 
@@ -25,17 +25,39 @@ light_source {
 #declare ampleg = 70;
 #declare amparm = 20;
 
-
 //kopf
+#declare halfhead =
+      intersection { 
+          sphere{< 0,0,0>,headR}
+          box{<-headR,-headR,-headR>,<headR,headR,0>}
+        }
+
 #declare head =
-  sphere{
-    < 0,0, 0>,headR
+union{
+  object{halfhead
     texture{
             pigment{color Grey}
             finish{phong 1}
     }
-    
+    texture{
+            pigment{
+              image_map{png "eyes.png"
+                        once
+                        map_type 0
+              }
+              translate<-0.5,-0.5,0>
+              scale<0.75,1,1>*1.5
+            }
+    }
   }
+  object{halfhead
+    texture{
+            pigment{color Grey}
+            finish{phong 1}
+    }
+  rotate<0,180,0>
+  }
+}
 
 
 //koerper
