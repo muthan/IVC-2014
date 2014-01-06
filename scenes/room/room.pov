@@ -1,4 +1,5 @@
 #include "colors.inc"
+#include "transforms.inc"
 #include "../../objects/pencil.inc"
 #include "../../objects/table.inc"
 #include "../../objects/desklamp.inc"
@@ -42,4 +43,7 @@ object { desk_lamp
 }
 
 #declare Tornado_spline = spline {TornadoSpline(1, 0.5, 4)}
-object{Tornado_clean scale 0.01 Spline_Trans(Tornado_spline, clock, y, 0.1, 0.5)}
+object { Tornado(1)
+  scale 0.03
+  Spline_Trans(Tornado_spline, clock, y, 0.1, 0.5)
+}
