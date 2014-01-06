@@ -3,7 +3,7 @@
 #include "../../objects/pencil.inc"
 #include "../../objects/table.inc"
 #include "../../objects/desklamp.inc"
-#include "../../experimental/spline/spline_macro.inc"
+#include "../../objects/spline_macro.inc"
 #include "../../objects/tornado.inc"
 
 background { Black }
@@ -42,8 +42,26 @@ object { desk_lamp
         translate <0.8,0.5,0.3>
 }
 
-#declare Tornado_spline = spline {TornadoSpline(1, 0.5, 4)}
+#declare Tornado_spline = spline {TornadoSpline(1, 0.5, 3)}
 object { Tornado(1)
-  scale 0.03
-  Spline_Trans(Tornado_spline, clock, y, 0.1, 0.5)
+  scale 0.02
+  Spline_Trans(Tornado_spline, clock, y, 0, 0)
 }
+
+// visualize our tornado spline, uncomment for usage:
+/**union{
+  #local i = 0;     // start
+  #local end_index = 1;  // end
+  #while (i <= end_index)
+    sphere{ <0,0,0>, 0.003 //radius
+
+      pigment{ color rgb<1,0.3,0>}
+      translate  Tornado_spline
+
+
+(i)
+    } // end of sphere
+    #local i = i + 0.01;
+  #end // -------- end of loop
+ }
+ **/

@@ -26,6 +26,7 @@ natural_spline
     1.00, < (max_X / 2) - x_Distortion, max_Y, max_Z>
 #end
 
+// mostly the same spline as CurvedSpline but with a small y distortion somewhere in the middle ("jump")
 #macro CurvedSplineJump(max_X, max_Y, max_Z, x_Distortion)
 natural_spline
     0.00, < (max_X / 2) + x_Distortion, 0.0, 0.0>,
@@ -54,17 +55,18 @@ natural_spline
 // Creates a spline starting at <0,max_y,0>  and then slowly grows up to max_x/2
 // but has z-axis distortions with multiplier distortion_grade
 #macro TornadoSpline(max_X, max_Y, distortion_grade)
-natural_spline
+cubic_spline
+    -0.05, < 0.0, max_Y, 0.0>,
     0.00, < 0.0, max_Y, 0.0 * distortion_grade>,
     0.05, < 0.05, max_Y, 0.05 * distortion_grade>,
     0.10, < 0.10, max_Y, 0.10 * distortion_grade>,
-    0.15, < 0.150, max_Y, 0.03 * distortion_grade>,
-    0.20, < 0.20, max_Y, 0.04 * distortion_grade>,
-    0.25, < 0.250, max_Y, -0.02 * distortion_grade>,
+    0.15, < 0.150, max_Y, 0.12 * distortion_grade>,
+    0.20, < 0.20, max_Y, 0.08 * distortion_grade>,
+    0.25, < 0.250, max_Y, 0.025 * distortion_grade>,
     0.30, < 0.30, max_Y, -0.03 * distortion_grade>,
-    0.35, < 0.350 max_Y, -0.05 * distortion_grade>,
-    0.40, < 0.40, max_Y, 0.0 * distortion_grade>,
-    0.45, < 0.45, max_Y, 0.05 * distortion_grade>,
+    0.35, < 0.350 max_Y, -0.07 * distortion_grade>,
+    0.40, < 0.40, max_Y, -0.04 * distortion_grade>,
+    0.45, < 0.45, max_Y, -0.01 * distortion_grade>,
     0.50, < max_X / 2, max_Y, 0.0>, 
     0.55, < max_X / 2, max_Y, 0.0>,
     0.60, < max_X / 2, max_Y, 0.0>,
@@ -75,5 +77,16 @@ natural_spline
     0.85, < max_X / 2, max_Y, 0.0>,
     0.90, < max_X / 2, max_Y, 0.0>,
     0.95, < max_X / 2, max_Y, 0.0>,
-    1.00, < max_X / 2, max_Y, 0.0>
+    1.00, < max_X / 2, max_Y, 0.0>,
+    1.05, < max_X / 2, max_Y, 0.0>,
+    1.10, < max_X / 2, max_Y, 0.0>,
+    1.15, < max_X / 2, max_Y, 0.0>,
+    1.20, < max_X / 2, max_Y, 0.0>,
+    1.25, < max_X / 2, max_Y, 0.0>,
+    1.30, < max_X / 2, max_Y, 0.0>,
+    1.35, < max_X / 2, max_Y, 0.0>,
+    1.40, < max_X / 2, max_Y, 0.0>,
+    1.45, < max_X / 2, max_Y, 0.0>,
+    1.50, < max_X / 2, max_Y, 0.0>,
+    1.55, < max_X / 2, max_Y, 0.0>
 #end
