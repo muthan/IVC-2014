@@ -16,7 +16,11 @@ camera {
 
 light_source {
   <-1000, 200, -200> White
-} 
+}
+
+plane{ <0,0.1,0>, 0 
+  texture{ pigment{ Black } }
+}
 
 object { Table
         rotate<0,0,0>
@@ -43,7 +47,7 @@ object { desk_lamp
 }
 
 #declare Tornado_spline = spline {TornadoSpline(1, 0.5, 3)}
-object { Tornado(1)
+object { Tornado(0)
   scale 0.02
   Spline_Trans(Tornado_spline, clock, y, 0, 0)
 }
