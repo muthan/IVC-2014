@@ -52,7 +52,9 @@ object { Tornado(0)
   Spline_Trans(Tornado_spline, clock, y, 0, 0)
 }
 
-// visualize our tornado spline, uncomment for usage:
+
+#declare Testspline = spline {TornadoUpwardsSpline(0.5, 0.5, 1, 0, 0.01)}
+// visualize our spline, uncomment for usage:
 /**union{
   #local i = 0;     // start
   #local end_index = 1;  // end
@@ -60,7 +62,7 @@ object { Tornado(0)
     sphere{ <0,0,0>, 0.003 //radius
 
       pigment{ color rgb<1,0.3,0>}
-      translate  Tornado_spline
+      translate  Testspline // or any spline name to test.
 
 
 (i)
@@ -69,3 +71,4 @@ object { Tornado(0)
   #end // -------- end of loop
  }
  **/
+ 
