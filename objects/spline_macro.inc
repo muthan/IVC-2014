@@ -90,3 +90,55 @@ cubic_spline
     1.50, < max_X / 2, max_Y, 0.0>,
     1.55, < max_X / 2, max_Y, 0.0>
 #end
+
+// only xpands in z-direction, plain straight spline
+#macro RunawayStraight(x_loc, y_loc, max_Z)
+natural_spline
+    0.00, <x_loc, y_loc, (max_Z / 20) * 0>,
+    0.05, <x_loc, y_loc, (max_Z / 20) * 1>,
+    0.10, <x_loc, y_loc, (max_Z / 20) * 2>,
+    0.15, <x_loc, y_loc, (max_Z / 20) * 3>,
+    0.20, <x_loc, y_loc, (max_Z / 20) * 4>,
+    0.25, <x_loc, y_loc, (max_Z / 20) * 5>,
+    0.30, <x_loc, y_loc, (max_Z / 20) * 6>,
+    0.35, <x_loc, y_loc, (max_Z / 20) * 7>,
+    0.40, <x_loc, y_loc, (max_Z / 20) * 8>,
+    0.45, <x_loc, y_loc, (max_Z / 20) * 9>,
+    0.50, <x_loc, y_loc, (max_Z / 20) * 10>, 
+    0.55, <x_loc, y_loc, (max_Z / 20) * 11>,
+    0.60, <x_loc, y_loc, (max_Z / 20) * 12>,
+    0.65, <x_loc, y_loc, (max_Z / 20) * 13>,
+    0.70, <x_loc, y_loc, (max_Z / 20) * 14>, 
+    0.75, <x_loc, y_loc, (max_Z / 20) * 15>,
+    0.80, <x_loc, y_loc, (max_Z / 20) * 16>,
+    0.85, <x_loc, y_loc, (max_Z / 20) * 17>,
+    0.90, <x_loc, y_loc, (max_Z / 20) * 18>,
+    0.95, <x_loc, y_loc, (max_Z / 20) * 19>,
+    1.00, <x_loc, y_loc, (max_Z / 20) * 20>
+#end
+
+// this spline is like a spiral in y direction
+#macro TornadoUpwardsSpline(x_loc, start_Y, max_Y, z_loc, spiral_radius)
+natural_spline
+    0.00, <x_loc, start_Y, z_loc>,
+    0.05, <x_loc + spiral_radius, start_Y + (max_Y-start_Y) / 20 * 1, z_loc + spiral_radius>,
+    0.10, <x_loc - spiral_radius, start_Y + (max_Y-start_Y) / 20 * 2, z_loc + spiral_radius>,
+    0.15, <x_loc - spiral_radius, start_Y + (max_Y-start_Y) / 20 * 3, z_loc - spiral_radius>,
+    0.20, <x_loc + spiral_radius, start_Y + (max_Y-start_Y) / 20 * 4, z_loc - spiral_radius>,
+    0.25, <x_loc + spiral_radius, start_Y + (max_Y-start_Y) / 20 * 5, z_loc + spiral_radius>,
+    0.30, <x_loc - spiral_radius, start_Y + (max_Y-start_Y) / 20 * 6, z_loc + spiral_radius>,
+    0.35, <x_loc - spiral_radius, start_Y + (max_Y-start_Y) / 20 * 7, z_loc - spiral_radius>,
+    0.40, <x_loc + spiral_radius, start_Y + (max_Y-start_Y) / 20 * 8, z_loc - spiral_radius>,
+    0.45, <x_loc + spiral_radius, start_Y + (max_Y-start_Y) / 20 * 9, z_loc + spiral_radius>,
+    0.50, <x_loc - spiral_radius, start_Y + (max_Y-start_Y) / 20 * 10, z_loc + spiral_radius>, 
+    0.55, <x_loc - spiral_radius, start_Y + (max_Y-start_Y) / 20 * 11, z_loc - spiral_radius>,
+    0.60, <x_loc + spiral_radius, start_Y + (max_Y-start_Y) / 20 * 12, z_loc - spiral_radius>,
+    0.65, <x_loc + spiral_radius, start_Y + (max_Y-start_Y) / 20 * 13, z_loc + spiral_radius>,
+    0.70, <x_loc - spiral_radius, start_Y + (max_Y-start_Y) / 20 * 14, z_loc + spiral_radius>, 
+    0.75, <x_loc - spiral_radius, start_Y + (max_Y-start_Y) / 20 * 15, z_loc - spiral_radius>,
+    0.80, <x_loc + spiral_radius, start_Y + (max_Y-start_Y) / 20 * 16, z_loc - spiral_radius>,
+    0.85, <x_loc + spiral_radius, start_Y + (max_Y-start_Y) / 20 * 17, z_loc + spiral_radius>,
+    0.90, <x_loc - spiral_radius, start_Y + (max_Y-start_Y) / 20 * 18, z_loc + spiral_radius>,
+    0.95, <x_loc - spiral_radius, start_Y + (max_Y-start_Y) / 20 * 19, z_loc - spiral_radius>,
+    1.00, <x_loc + spiral_radius, start_Y + (max_Y-start_Y) / 20 * 20, z_loc + spiral_radius> //in the middle again
+#end
