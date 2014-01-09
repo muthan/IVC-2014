@@ -94,7 +94,7 @@ union{
 #declare man =
   union {
       object {head 
-              rotate <0,150*sin(2*pi*clock),0>
+              rotate <0,100*sin(2*pi*clock),0>
               translate <0.0, 4.0, 0.0>
               }
       object {body translate <0.0, 2.0, 0.0>}
