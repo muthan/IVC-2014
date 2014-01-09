@@ -2,7 +2,6 @@
 #include "colors.inc"
 #include "../../objects/spline_macro.inc"
 #include "../../objects/checked_ball.inc"
-#include "../../objects/wobbel.inc"
 
 
 
@@ -21,18 +20,6 @@ background {Grey}
 #declare Runway_2 = spline {RunawayXCurve(START_POINT.x, SECOND_RUN_CURVE,  START_POINT.y, FIRST_RUN_LENGTH, SECOND_RUN_LENGTH)}
 #declare Cam_1 = spline {RunawayStraight(START_POINT.x + 0.3, START_POINT.y + 2, START_POINT.z - 2, FIRST_RUN_LENGTH - 2)}
 #declare Runway_max = spline {RunawayLongEven(START_POINT.x, START_POINT.y, START_POINT.z, 2)}
-
-object {
-    Ball
-    scale 0.08
-    translate<
-}
-object {
-    Ball
-    scale 0.08
-    Spline_Trans(Runway_2, clock, y, 0, 0)
-}
-
 
 camera {
     location <-10, 350, -10>
@@ -72,16 +59,16 @@ union{
  }
 **/
 
- union{
+union{
   #local i = 0;     // start
-  #local end_index = 1;  // end
+  #local end_index = 100;  // end
   #while (i <= end_index)
     sphere{ <0,0,0>, 0.2
-      pigment{ color rgb<0,0.3,0>}
+      pigment{ color rgb<1,0.3,0>}
       translate Runway_max(i)
     } 
-    #local i = i + 0.00001;
-  #end // -------- end of loop
+    #local i = i + 0.005;
+    #end // -------- end of loop
  }
  
 
