@@ -23,7 +23,7 @@
             pigment{ rgbt 1 }
         #end
 
-        interior{ //-----------
+        interior{
             media{
                 #if(draft = 1)
                     absorption<1,1,1>
@@ -32,16 +32,16 @@
                 #end
                 
                 intervals 3
-                samples 1,1 //min,max
+                samples 1,1
 
                 density {
                     spiral2 2 //scale <10,2,2> // HIER
                     scale 1.5
                     turbulence 0.2
                     color_map {
-                        [0.00 rgb 0.00] // border 
-                        [0.50 rgb 0.20] // 
-                        [1.00 rgb 1.00] // center 
+                        [0.00 rgb 1.00] // border 
+                        [0.50 rgb 0.80] // 
+                        [1.00 rgb 0.20] // center 
                     }
                 }
 
@@ -56,7 +56,7 @@
                         [1.00 rgb 0.50] // center 
                     }
                 }
-                rotate y*clock*360*4
+                rotate y*clock*360*10
             }
        }
     }
