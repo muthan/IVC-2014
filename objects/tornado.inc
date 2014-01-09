@@ -40,7 +40,7 @@
                     turbulence 0.2
                     color_map {
                         [0.00 rgb 1.00] // border 
-                        [0.50 rgb 0.90] // 
+                        [0.50 rgb 0.80] // 
                         [1.00 rgb 0.20] // center 
                     }
                 }
@@ -56,7 +56,7 @@
                         [1.00 rgb 0.50] // center 
                     }
                 }
-                rotate y*clock*360*4
+                rotate y*clock*360*10
             }
        }
     }
