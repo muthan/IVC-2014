@@ -2,7 +2,7 @@
 #include "transforms.inc"
 #include "../../objects/pencil.inc"
 #include "../../objects/table.inc"
-#include "../../objects/desklamp.inc"
+#include "../../objects/lamp.inc"
 #include "../../objects/spline_macro.inc"
 #include "../../objects/tornado.inc"
 
@@ -40,9 +40,9 @@ object { red_pencil
         translate <0.60, 0.5+0.002, -0.1>
 }
 
-object { desk_lamp
+object { Lamp
         scale 0.01
-        rotate<0,-50,0>
+        rotate<0,130,0>
         translate <0.8,0.5,0.3>
 }
 
