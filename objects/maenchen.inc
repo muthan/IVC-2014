@@ -11,6 +11,18 @@
 #declare ampleg = 40;
 #declare amparm = 20;
 
+// Es sind folgende Maennchen vorhanden
+//
+// manLooks-LR
+// man-lookup
+// man-panic
+// man-tornado
+// man-runsNormal
+
+
+
+
+
 
 //kopf
 #declare halfhead =
