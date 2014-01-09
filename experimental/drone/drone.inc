@@ -5,17 +5,8 @@
 #include "glass.inc"
 #include "textures.inc"
 
-background { White }
+// Objekt Drone
 
-camera {
-  location <-5, -10, -5>
-  look_at <0, 0, 0> 
-  angle 36
-}
-
-light_source {
-	<1000, 1000, 0> White
-}
 
 #declare rawdronehead =
       intersection { 
@@ -118,4 +109,4 @@ union{
 	}
 }
 
-  object{drone translate<0.0,0.0,0.0>}
+ 
