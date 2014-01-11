@@ -25,6 +25,6 @@ camera {
     look_at Y_spline_sustain(clock)
     angle 40
 }
-object{man_normal scale 0.5 rotate<0,-120,0>}
+object{man_lookup_no_movement scale 0.5 rotate<0,-120,0>}
 
 object{drone scale 0.5 translate<0, 5, 0> rotate<0,-120,0>}
