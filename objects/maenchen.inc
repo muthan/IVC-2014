@@ -93,7 +93,7 @@ union{
 #declare manLooks_LR =
   union {
       object {head 
-              rotate <0,70*sin(2*pi*clock),0>
+              rotate <0,60*sin(pi*clock),0>
               translate <0.0, 4.0, 0.0>
               }
       object {body translate <0.0, 2.0, 0.0>}
@@ -132,11 +132,59 @@ union{
         translate <0,2,0>
       }
 }
+
+/**
+* use -1 and 1 as arguments for right and left rotate.
+**/
+#macro manLooks(Dir) 
+  union {
+      object {head 
+              rotate <0,60*sin(Dir*0.5*pi*clock),0>
+              translate <0.0, 4.0, 0.0>
+              }
+      object {body translate <0.0, 2.0, 0.0>}
+      
+      //left arm
+      object {limb
+        rotate <0,0,-50>
+        translate <0.0, 3.2, 0.0>
+      }
+      object {limb
+        rotate <0,70,-40>
+        translate <0.7,2.4, 0.0>
+      }
+       
+            
+      //right arm
+      object {limb
+        rotate <0,180,50>
+        translate <0.0, 3.2, 0.0>
+      }
+      object {limb
+        rotate <0,110,40>
+        translate <-0.7,2.4, 0.0>
+      }
+      
+      //left leg
+
+      object{body
+        rotate <0,0,-195>
+        translate <0,2,0>
+      }
+
+      // right leg
+      object{body
+        rotate <0,0,195>
+        translate <0,2,0>
+      }
+}
+#end
+
 
 #declare man_lookup =
   union {
       object {head 
-              rotate <70*sin(0.5*pi*clock),0,0>
+              rotate <70*sin(0.25*pi*clock),0,0>
               translate <0.0, 4.0, 0.0>
               }
       object {body translate <0.0, 2.0, 0.0>}
@@ -176,9 +224,10 @@ union{
       }
 }
 
-#declare man_normal =
+#declare man_lookup_no_movement =
   union {
-      object {head translate <0.0, 4.0, 0.0>
+      object {head rotate <70*sin(0.25*pi),0,0>
+                   translate <0.0, 4.0, 0.0>
               }
       object {body translate <0.0, 2.0, 0.0>}
       
@@ -217,7 +266,7 @@ union{
       }
 }
 
-#macro man_runsNormal(Clock_Faktor) 
+#macro man_runsNormal(clock_factor) 
   union {
       object {head translate <0.0, 4.0, 0.0>}
       object {body translate <0.0, 2.0, 0.0>}
@@ -246,13 +295,15 @@ union{
       //left leg
 
       object{body
-        rotate <ampleg*-sin(2*clock*Clock_Faktor*2*pi),0,-195>
+        rotate <ampleg*-sin(2*clock*clock_factor
+    *2*pi),0,-195>
         translate <0,2,0>
       }
 
       // right leg
       object{body
-        rotate <ampleg*sin(2*clock*Clock_Faktor*2*pi),0,195>
+        rotate <ampleg*sin(2*clock*clock_factor
+    *2*pi),0,195>
         translate <0,2,0>
       }
 }
