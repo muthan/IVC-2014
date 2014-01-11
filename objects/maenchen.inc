@@ -40,7 +40,8 @@ union{
     }
     texture{
             pigment{
-              image_map{png "eyes.png"
+              // need to apply relative path from the rendering directory, which is a subfolder in scenes.
+              image_map{png "../../objects/textures/eyes.png"
                         once
                         map_type 0
               }
@@ -89,7 +90,7 @@ union{
         } // end of sphere sweep
 
 
-#declare manLooks-LR =
+#declare manLooks_LR =
   union {
       object {head 
               rotate <0,70*sin(2*pi*clock),0>
@@ -132,7 +133,7 @@ union{
       }
 }
 
-#declare man-lookup =
+#declare man_lookup =
   union {
       object {head 
               rotate <70*sin(0.5*pi*clock),0,0>
@@ -175,7 +176,48 @@ union{
       }
 }
 
-#declare man-runsNormal =
+#declare man_normal =
+  union {
+      object {head translate <0.0, 4.0, 0.0>
+              }
+      object {body translate <0.0, 2.0, 0.0>}
+      
+      //left arm
+      object {limb
+        rotate <0,0,-50>
+        translate <0.0, 3.2, 0.0>
+      }
+      object {limb
+        rotate <0,70,-40>
+        translate <0.7,2.4, 0.0>
+      }
+       
+            
+      //right arm
+      object {limb
+        rotate <0,180,50>
+        translate <0.0, 3.2, 0.0>
+      }
+      object {limb
+        rotate <0,110,40>
+        translate <-0.7,2.4, 0.0>
+      }
+      
+      //left leg
+
+      object{body
+        rotate <0,0,-195>
+        translate <0,2,0>
+      }
+
+      // right leg
+      object{body
+        rotate <0,0,195>
+        translate <0,2,0>
+      }
+}
+
+#macro man_runsNormal(Clock_Faktor) 
   union {
       object {head translate <0.0, 4.0, 0.0>}
       object {body translate <0.0, 2.0, 0.0>}
@@ -204,18 +246,19 @@ union{
       //left leg
 
       object{body
-        rotate <ampleg*-sin(2*clock*2*pi),0,-195>
+        rotate <ampleg*-sin(2*clock*Clock_Faktor*2*pi),0,-195>
         translate <0,2,0>
       }
 
       // right leg
       object{body
-        rotate <ampleg*sin(2*clock*2*pi),0,195>
+        rotate <ampleg*sin(2*clock*Clock_Faktor*2*pi),0,195>
         translate <0,2,0>
       }
 }
+#end
 
-#declare man-panic =
+#declare man_panic =
   union {
       object {head translate <0.0, 4.0, 0.0>}
       object {body translate <0.0, 2.0, 0.0>}
@@ -254,7 +297,7 @@ union{
       }
 }
 
-#declare man-tornado =
+#declare man_tornado =
   union {
       object {head translate <0.0, 4.0, 0.0>}
       object {body translate <0.0, 2.0, 0.0>}
