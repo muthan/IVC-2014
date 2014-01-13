@@ -13,11 +13,11 @@
 
 // Es sind folgende Maennchen vorhanden
 //
-// manLooks-LR
-// man-lookup
-// man-panic
-// man-tornado
-// man-runsNormal
+// manLooks(Dir), wobei dir -1 oder 1 (links oder rechts)
+// man_lookup
+// man_panic
+// man_tornado
+// man_runsNormal
 
 
 
