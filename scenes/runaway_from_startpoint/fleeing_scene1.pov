@@ -15,6 +15,7 @@ light_source {
 // edit all constants here
 
 #declare START_POINT = <0,0,0>;
+#declare WOBBEL_1_LOCATION = <-27, 0, 117>;
 #declare FIRST_RUN_LENGTH = 40;
 #declare SECOND_RUN_LENGTH = 80;
 #declare SECOND_RUN_CURVE = -20;
@@ -24,6 +25,21 @@ light_source {
 
 //Select the camera here:
 #declare CAMERA = 3;
+
+#declare clock_spline = spline {
+  linear_spline
+    0, 3,
+    1, 3,
+    1.999999999, 3,
+    2, 1,
+    2.999999999, 1,
+    3, 2, 
+    4, 2,
+    5, 2
+
+}
+
+#declare CAMERA = clock_spline(clock).x;
 
 #declare Runway_1 = spline {RunawayStraight(START_POINT.x, START_POINT.y, START_POINT.z, FIRST_RUN_LENGTH)}
 #declare Runway_2 = spline {RunawayXCurve(START_POINT.x, SECOND_RUN_CURVE,  START_POINT.y, FIRST_RUN_LENGTH, SECOND_RUN_LENGTH)}
@@ -82,6 +98,14 @@ light_source {
       angle 60
   }
   #break
+#case(6)
+  //view the wobbel 
+  camera {
+      location <-27, 30, 115>
+      look_at WOBBEL_1_LOCATION
+      angle 60
+  }
+  #break
 
 #end
 
@@ -123,7 +147,7 @@ object {Fancy_Pillar(14, 0, 25) scale GENERAL_SCALE}
 object {Fancy_Pillar(10, 0, 29) scale GENERAL_SCALE}
 
 //in the first "loop" in the runway:
-object{Wobbel(Cam_spline_movespeed, 5) scale 7 translate<-27, 0, 115>}
+object{Wobbel(Cam_spline_movespeed, 5) scale 6 translate WOBBEL_1_LOCATION}
 
 
 
