@@ -24,9 +24,20 @@ light_source {
 #declare RUNWAY_ALIGN_DIST = 5;
 
 //Select the camera here:
+
+#declare CAMERA_1 = 1; // View of the drone (moving cam)
+#declare CAMERA_2 = 2; // View in front of the man (moving cam)
+#declare CAMERA_3 = 3; // view behind the drone (moving cam)
+#declare CAMERA_4 = 4; // view whole world (static cam)
+#declare CAMERA_5 = 5; // view the startpoint (static cam)
+#declare CAMERA_6 = 6; // view the wobbel (static cam)
+
+
 #declare CAMERA = 3;
 
 #declare clock_spline = spline {
+  //only makes sense to use moving cams here!
+  //else wise set the clock number manually, no need to animate things
   linear_spline
     0, 3,
     1, 3,
@@ -39,6 +50,8 @@ light_source {
 
 }
 
+//this kinda rapes the intention of splines, but hey..!
+// takes the spline val calculated with the clock as parameter, which will then return a vector containing the wanted camera number.
 #declare CAMERA = clock_spline(clock).x;
 
 #declare Runway_1 = spline {RunawayStraight(START_POINT.x, START_POINT.y, START_POINT.z, FIRST_RUN_LENGTH)}
@@ -49,7 +62,7 @@ light_source {
 #declare Cam_In_Front_Of_Man = spline {RunawayLongEven(START_POINT.x, START_POINT.y + 1, START_POINT.z, GENERAL_SCALE)}
 #declare Drone_View_Offset = 0;
 #declare Behind_Drone_View_Offset = -2;
-#declare In_Front_Of_Man_View_Offset = 4;
+#declare In_Front_Of_Man_View_Offset = 0.5;
 #declare Look_at_Offset = 2;
 
 
@@ -61,28 +74,28 @@ light_source {
 
 //take the camera which has been declared above:
 #switch(CAMERA)
-#case(1)
+#case(CAMERA_1)
   camera {
       location Cam_Drone_View(clock*Cam_spline_movespeed + Drone_View_Offset)
       look_at Runway_max(clock*Cam_spline_movespeed + Look_at_Offset)
       angle 40
   }
   #break
-#case(2)
+#case(CAMERA_2)
   camera {
       location Cam_In_Front_Of_Man(clock*Cam_spline_movespeed + In_Front_Of_Man_View_Offset)
       look_at Runway_max(clock*Cam_spline_movespeed + Look_at_Offset)
       angle 40
   }
   #break
-#case(3)
+#case(CAMERA_3)
   camera {
       location Cam_Behind_Drone_View(clock*Cam_spline_movespeed + Behind_Drone_View_Offset)
       look_at Runway_max(clock*Cam_spline_movespeed + Look_at_Offset)
       angle 40
   }
   #break
-#case(4)
+#case(CAMERA_4)
   //for viewing the whole "world" from above.
   camera {
       location <-10, 350, -10>
@@ -90,7 +103,7 @@ light_source {
       angle 60
   }
   #break
-#case(5)
+#case(CAMERA_5)
   //view the startpoint 
   camera {
       location <0, 4, 10>
@@ -98,7 +111,7 @@ light_source {
       angle 60
   }
   #break
-#case(6)
+#case(CAMERA_6)
   //view the wobbel 
   camera {
       location <-27, 30, 115>
