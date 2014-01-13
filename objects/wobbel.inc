@@ -5,7 +5,7 @@
 #declare Random_2 = seed (23);
 #declare Random_3 = seed (40);
 
-#macro Wobbel(Clock_speed)
+#macro Wobbel(Clock_speed, Final_Clock)
 union {
  #local i = 0; 
  #local end_index = 150;
@@ -14,7 +14,7 @@ union {
    #local LowOffset = 0.4;
    #local RandScale = (1+0.1*rand(Random_1)); 
    #local Position  = RandScale * VRand_On_Sphere(Random_1);
-   #local RandDirection = LowOffset + (1 - abs(2 * *Clock_speed * clock -1)) * 0.7;
+   #local RandDirection = LowOffset + ((1*Clock_speed*Final_Clock - abs(2 * Clock_speed* clock -1*Clock_speed*Final_Clock) )/(Clock_speed*Final_Clock)) * 0.7;
    #local Random = rand(Random_1);
    
    union{
@@ -40,7 +40,7 @@ union {
    }
  #local i = i + 1; 
  #end 
- rotate<180*clock,360*clock,-180*clock>
+ rotate<180*clock*Clock_speed*Final_Clock,360*clock*Clock_speed*Final_Clock,-180*clock*Clock_speed*Final_Clock>
 
  translate<0,1.25,0>
  rotate<0,0,0>
