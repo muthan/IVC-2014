@@ -92,30 +92,23 @@ cubic_spline
 #end
 
 // only xpands in z-direction, plain straight spline
-#macro RunawayStraight(x_loc, y_loc, max_Z)
+#macro RunawayStraight(x_loc, y_loc, z_loc, max_Z)
 natural_spline
-    0.00, <x_loc, y_loc, (max_Z / 20) * 0>,
-    0.05, <x_loc, y_loc, (max_Z / 20) * 1>,
-    0.10, <x_loc, y_loc, (max_Z / 20) * 2>,
-    0.15, <x_loc, y_loc, (max_Z / 20) * 3>,
-    0.20, <x_loc, y_loc, (max_Z / 20) * 4>,
-    0.25, <x_loc, y_loc, (max_Z / 20) * 5>,
-    0.30, <x_loc, y_loc, (max_Z / 20) * 6>,
-    0.35, <x_loc, y_loc, (max_Z / 20) * 7>,
-    0.40, <x_loc, y_loc, (max_Z / 20) * 8>,
-    0.45, <x_loc, y_loc, (max_Z / 20) * 9>,
-    0.50, <x_loc, y_loc, (max_Z / 20) * 10>, 
-    0.55, <x_loc, y_loc, (max_Z / 20) * 11>,
-    0.60, <x_loc, y_loc, (max_Z / 20) * 12>,
-    0.65, <x_loc, y_loc, (max_Z / 20) * 13>,
-    0.70, <x_loc, y_loc, (max_Z / 20) * 14>, 
-    0.75, <x_loc, y_loc, (max_Z / 20) * 15>,
-    0.80, <x_loc, y_loc, (max_Z / 20) * 16>,
-    0.85, <x_loc, y_loc, (max_Z / 20) * 17>,
-    0.90, <x_loc, y_loc, (max_Z / 20) * 18>,
-    0.95, <x_loc, y_loc, (max_Z / 20) * 19>,
-    1.00, <x_loc, y_loc, (max_Z / 20) * 20>
+    0.00, <x_loc, y_loc, z_loc>,
+    0.50, <x_loc, y_loc, (max_Z / 2)>, 
+    1.00, <x_loc, y_loc, max_Z>
 #end
+
+// expands in x- and z-direction, results in a curve
+#macro RunawayXCurve(x_loc, max_X, y_loc, z_loc, max_Z)
+natural_spline
+    0.00, <x_loc, y_loc, z_loc>,
+    0.50, <max_X /2, y_loc, (max_Z / 2)>, 
+    1.00, <max_X, y_loc, max_Z>
+#end
+
+
+
 
 // this spline is like a spiral in y direction
 #macro TornadoUpwardsSpline(x_loc, start_Y, max_Y, z_loc, spiral_radius)
@@ -141,4 +134,62 @@ natural_spline
     0.90, <x_loc - spiral_radius, start_Y + (max_Y-start_Y) / 20 * 18, z_loc + spiral_radius>,
     0.95, <x_loc - spiral_radius, start_Y + (max_Y-start_Y) / 20 * 19, z_loc - spiral_radius>,
     1.00, <x_loc + spiral_radius, start_Y + (max_Y-start_Y) / 20 * 20, z_loc + spiral_radius> //in the middle again
+#end
+
+/**
+ * This Spline goes from 0 to 100 in ints accepted keys.
+ **/
+#macro RunawayLongEven(x_loc, y_loc, z_loc, my_scale)
+natural_spline
+    00, <x_loc, y_loc, z_loc> * my_scale,
+    02, <x_loc - 1, y_loc, z_loc + 2> * my_scale,
+    04, <x_loc - 1.5, y_loc, z_loc + 5> * my_scale,
+    06, <x_loc - 0.5, y_loc, z_loc + 7> * my_scale,
+    8, <x_loc + 1, y_loc, z_loc + 10> * my_scale,
+    10, <x_loc + 1.5, y_loc, z_loc + 12> * my_scale,
+    12, <x_loc + 2, y_loc, z_loc + 14> * my_scale,
+    14, <x_loc + 7, y_loc, z_loc + 20> * my_scale,
+    16, <x_loc + 9, y_loc, z_loc + 20> * my_scale,
+    18, <x_loc + 13, y_loc, z_loc + 23> * my_scale,
+    20, <x_loc + 6, y_loc, z_loc + 30> * my_scale,
+    22, <x_loc + 4, y_loc, z_loc + 32> * my_scale,
+    24, <x_loc, y_loc, z_loc + 40> * my_scale,
+    26, <x_loc + 2, y_loc, z_loc + 44> * my_scale,
+    28, <x_loc - 4, y_loc, z_loc + 50> * my_scale,
+    30, <x_loc - 8, y_loc, z_loc + 50> * my_scale,
+    32, <x_loc - 16, y_loc, z_loc + 50> * my_scale,
+    34, <x_loc - 15, y_loc, z_loc + 63> * my_scale, //here is a 'loop'
+    36, <x_loc - 10, y_loc, z_loc + 57> * my_scale, //go back a little
+    38, <x_loc - 15, y_loc, z_loc + 57> * my_scale,
+    40, <x_loc - 20, y_loc, z_loc + 60> * my_scale,
+    42, <x_loc - 26, y_loc, z_loc + 60> * my_scale,
+    44, <x_loc - 30, y_loc, z_loc + 60> * my_scale,
+    46, <x_loc - 50, y_loc, z_loc + 60> * my_scale, //long turn to left
+    48, <x_loc - 50, y_loc, z_loc + 65> * my_scale,
+    50, <x_loc - 55, y_loc, z_loc + 70> * my_scale, //my part!
+    52, <x_loc - 50, y_loc, z_loc + 75> * my_scale, 
+    54, <x_loc - 40, y_loc, z_loc + 77> * my_scale, 
+    56, <x_loc - 35, y_loc, z_loc + 70> * my_scale, 
+    58, <x_loc - 25, y_loc, z_loc + 65> * my_scale, 
+    60, <x_loc - 20, y_loc, z_loc + 65> * my_scale, 
+    62, <x_loc - 15, y_loc, z_loc + 65> * my_scale, 
+    64, <x_loc - 10, y_loc, z_loc + 80> * my_scale, 
+    66, <x_loc - 5, y_loc, z_loc + 85> * my_scale, 
+    68, <x_loc - 0, y_loc, z_loc + 90> * my_scale, 
+    70, <x_loc - 0, y_loc, z_loc + 100> * my_scale, 
+    72, <x_loc - 0, y_loc, z_loc + 110> * my_scale, 
+    74, <x_loc + 10, y_loc, z_loc + 130> * my_scale, 
+    76, <x_loc + 20, y_loc, z_loc + 150> * my_scale, 
+    78, <x_loc + 25, y_loc, z_loc + 122> * my_scale, 
+    80, <x_loc + 17, y_loc, z_loc + 115> * my_scale, 
+    82, <x_loc + 20, y_loc, z_loc + 140> * my_scale, 
+    84, <x_loc + 55, y_loc, z_loc + 160> * my_scale, 
+    86, <x_loc + 60, y_loc, z_loc + 170> * my_scale, 
+    88, <x_loc + 65, y_loc, z_loc + 175> * my_scale, 
+    90, <x_loc + 70, y_loc, z_loc + 180> * my_scale, 
+    92, <x_loc + 55, y_loc, z_loc + 190> * my_scale, 
+    94 <x_loc + 55, y_loc, z_loc + 220> * my_scale, 
+    96, <x_loc + 40, y_loc, z_loc + 170> * my_scale, 
+    98, <x_loc + 24, y_loc, z_loc + 200> * my_scale, 
+    100, <x_loc + 20, y_loc, z_loc + 180> * my_scale
 #end
