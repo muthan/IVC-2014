@@ -23,7 +23,7 @@ light_source {
 #declare RUNWAY_ALIGN_DIST = 5;
 
 //Select the camera here:
-#declare CAMERA = 4;
+#declare CAMERA = 3;
 
 #declare Runway_1 = spline {RunawayStraight(START_POINT.x, START_POINT.y, START_POINT.z, FIRST_RUN_LENGTH)}
 #declare Runway_2 = spline {RunawayXCurve(START_POINT.x, SECOND_RUN_CURVE,  START_POINT.y, FIRST_RUN_LENGTH, SECOND_RUN_LENGTH)}
@@ -123,7 +123,7 @@ object {Fancy_Pillar(14, 0, 25) scale GENERAL_SCALE}
 object {Fancy_Pillar(10, 0, 29) scale GENERAL_SCALE}
 
 //in the first "loop" in the runway:
-object{Wobbel scale 10 translate<-27, 0, 115>}
+object{Wobbel(Cam_spline_movespeed, 5) scale 7 translate<-27, 0, 115>}
 
 
 
