@@ -15,6 +15,6 @@ camera {
     look_at <0,2,0>
     angle 40
 }
-object{man_lookup scale 0.5 rotate<0,-120,0>}
+object{manLooks(0) scale 0.5 rotate<0,-120,0>}
 
 object{drone scale 0.5 translate<0, 5, 0> rotate<0,-120,0>}
