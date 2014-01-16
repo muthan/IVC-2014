@@ -17,10 +17,10 @@ light_source {
 
 #declare START_POINT = <0,0,0>;
 #declare BOX_1_END = <3,0,9>;
-#declare BOX_2_START = <18,0,120>;
-#declare BOX_2_END = <-24,0,140>;
-#declare BOX_3_START = <-30,0,200>;
-#declare BOX_3_END = <15,0,150>;
+#declare BOX_2_START = <-28,0,56>;
+#declare BOX_2_END = <-45,0,59>;
+#declare BOX_3_START = <-3,0,45>;
+#declare BOX_3_END = <-10,0,50>;
 #declare WOBBEL_1_LOCATION = <-27, 0, 117>;
 #declare FIRST_RUN_LENGTH = 40;
 #declare SECOND_RUN_LENGTH = 80;
@@ -46,11 +46,11 @@ light_source {
   //only makes sense to use moving cams here!
   //else wise set the clock number manually, no need to animate things
   linear_spline
-    0, 3,
-    1, 3,
-    1.999999999, 3,
-    2, 1,
-    2.999999999, 1,
+    0, 2,
+    1, 2,
+    1.999999999, 2,
+    2, 3,
+    2.999999999, 3,
     3, 2, 
     4, 2,
     5, 2
@@ -59,7 +59,7 @@ light_source {
 
 //this kinda rapes the intention of splines, but hey..!
 // takes the spline val calculated with the clock as parameter, which will then return a vector containing the wanted camera number.
-//#declare CAMERA = clock_spline(clock).x;
+#declare CAMERA = clock_spline(clock).x;
 
 #declare Runway_1 = spline {RunawayStraight(START_POINT.x, START_POINT.y, START_POINT.z, FIRST_RUN_LENGTH)}
 #declare Runway_2 = spline {RunawayXCurve(START_POINT.x, SECOND_RUN_CURVE,  START_POINT.y, FIRST_RUN_LENGTH, SECOND_RUN_LENGTH)}
@@ -140,7 +140,9 @@ light_source {
 
 // The ground. 
 background {color<0.6,0.3,0.9>}
-
+plane { y, -1 
+  pigment{color<0.6,0.3,0.9>}
+}
 
 // declare the drone and the main character (the stick man) which will be chased by the drone through our world.
 object{drone rotate<0, 180,0> translate<0, 5, 0> scale 0.5 Spline_Trans(Runway_max, clock*Cam_spline_movespeed, y, 0.1, 0.5)}
@@ -169,7 +171,14 @@ box {
 box {
   BOX_3_START * GENERAL_SCALE, BOX_3_END * GENERAL_SCALE
   pigment {BOX_COLOR}
+  rotate<0,10,0>
 }
+
+box {
+  BOX_3_START * GENERAL_SCALE, BOX_3_END * GENERAL_SCALE
+  pigment {BOX_COLOR}
+}
+
 
 
 
@@ -187,6 +196,7 @@ object {Fancy_Pillar(10, 0, 29) scale GENERAL_SCALE}
 //in the first "loop" in the runway:
 object{Wobbel(Cam_spline_movespeed, 5) scale 6 translate WOBBEL_1_LOCATION}
 
+//arrange balls on the first box, BOX_1
 #declare Z_delay_ball = 0;     // start
 #while (Z_delay_ball < BOX_1_END.z)
   object{Ball translate  <START_POINT.x - 5, BOX_1_END.y +2 , 2 + Z_delay_ball + 11.5> * GENERAL_SCALE pigment{hexagon color rgb< rand(1
@@ -194,6 +204,17 @@ object{Wobbel(Cam_spline_movespeed, 5) scale 6 translate WOBBEL_1_LOCATION}
  color rgb< rand(2), rand(1), rand(3)>} scale 0.5 * GENERAL_SCALE rotate <0,37,0>} 
 
  #declare Z_delay_ball = Z_delay_ball + 3;  //next Nr
+
+#end 
+
+//arrange balls on the second box, BOX_2
+#declare X_Delay_Ball = 0;     // start
+#while (X_Delay_Ball > (BOX_2_END.x - BOX_2_START.x))
+  object{Ball translate  <BOX_2_START.x -1.5 + X_Delay_Ball, BOX_2_START.y +2 , BOX_2_START.z + (BOX_2_END.z - BOX_2_START.z) /2 > * GENERAL_SCALE pigment{hexagon color rgb< rand(1
+), rand(1), rand(3)>, color rgb< rand(2), rand(1), rand(3)>,
+ color rgb< rand(2), rand(1), rand(3)>} scale 0.5 * GENERAL_SCALE} 
+
+ #declare X_Delay_Ball = X_Delay_Ball - 3;  //next Nr
 
 #end //
 
