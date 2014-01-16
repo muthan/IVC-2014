@@ -169,9 +169,9 @@ natural_spline
     88, <x_loc + 65, y_loc, z_loc + 175> * my_scale, 
     90, <x_loc + 70, y_loc, z_loc + 180> * my_scale, 
     92, <x_loc + 55, y_loc, z_loc + 190> * my_scale, 
-    94 <x_loc + 55, y_loc, z_loc + 220> * my_scale, 
-    96, <x_loc + 40, y_loc, z_loc + 170> * my_scale, 
-    98, <x_loc + 24, y_loc, z_loc + 200> * my_scale, 
-    100, <x_loc + 20, y_loc, z_loc + 180> * my_scale,//end
+    94 <x_loc + 55, y_loc, z_loc + 200> * my_scale, 
+    96, <x_loc + 40, y_loc, z_loc + 210> * my_scale, 
+    98, <x_loc + 24, y_loc, z_loc + 220> * my_scale, 
+    100, <x_loc + 20, y_loc, z_loc + 190> * my_scale,//end
     102, <x_loc + 21, y_loc, z_loc + 185> * my_scale //control point for camera
 #end

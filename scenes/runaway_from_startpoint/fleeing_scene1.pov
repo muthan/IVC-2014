@@ -1,27 +1,46 @@
 #include "transforms.inc"
 #include "colors.inc"
 #include "../../objects/spline_macro.inc"
-#include "../../objects/checked_ball.inc"
 #include "../../objects/fancy_pillar.inc"
 #include "../../util/positioning_utils.inc"
 #include "../../objects/maenchen.inc"
 #include "../../objects/drone.inc"
 #include "../../objects/wobbel.inc"
 #include "../../objects/checked_ball.inc"
+#include "../../objects/loop.inc"
+
 
 light_source {
   <-1000, 200, -200> White
 }
 
-// edit all constants here
+// edit all constants here, this are mainly the object locations.
+// so if specific objects shall be seated somewhere else, edit that here!
 
 #declare START_POINT = <0,0,0>;
 #declare BOX_1_END = <3,0,9>;
-#declare BOX_2_START = <18,0,120>;
-#declare BOX_2_END = <-24,0,140>;
-#declare BOX_3_START = <-30,0,200>;
-#declare BOX_3_END = <15,0,150>;
+#declare BOX_2_START = <-28,0,56>;
+#declare BOX_2_END = <-45,0,59>;
+#declare BOX_3_START = <-3,0,45>;
+#declare BOX_3_END = <-10,0,50>;
+
 #declare WOBBEL_1_LOCATION = <-27, 0, 117>;
+#declare WOBBEL_2_LOCATION = <40,0,260>;
+#declare WOBBEL_3_LOCATION = <40,15,260>;
+#declare WOBBEL_4_LOCATION = <0,15,190>;
+#declare WOBBEL_5_LOCATION = <10,10,190>;
+#declare WOBBEL_6_LOCATION = <10,0,190>;
+#declare WOBBEL_7_LOCATION = <-10,0,190>;
+#declare WOBBEL_8_LOCATION = <-10,10,190>;
+#declare WOBBEL_9_LOCATION = <0,15,180>;
+#declare WOBBEL_10_LOCATION = <10,10,180>;
+#declare WOBBEL_11_LOCATION = <10,0,180>;
+#declare WOBBEL_12_LOCATION = <-10,0,180>;
+#declare WOBBEL_13_LOCATION = <-10,10,180>;
+#declare WOBBEL_14_LOCATION = <40,5,260>;
+#declare WOBBEL_15_LOCATION = <40,5,260>;
+#declare WOBBEL_16_LOCATION = <40,5,260>;
+
 #declare FIRST_RUN_LENGTH = 40;
 #declare SECOND_RUN_LENGTH = 80;
 #declare SECOND_RUN_CURVE = -20;
@@ -46,11 +65,11 @@ light_source {
   //only makes sense to use moving cams here!
   //else wise set the clock number manually, no need to animate things
   linear_spline
-    0, 3,
-    1, 3,
-    1.999999999, 3,
-    2, 1,
-    2.999999999, 1,
+    0, 2,
+    1, 2,
+    1.999999999, 2,
+    2, 3,
+    2.999999999, 3,
     3, 2, 
     4, 2,
     5, 2
@@ -140,7 +159,9 @@ light_source {
 
 // The ground. 
 background {color<0.6,0.3,0.9>}
-
+plane { y, 0 
+  pigment{color<0.6,0.3,0.9>}
+}
 
 // declare the drone and the main character (the stick man) which will be chased by the drone through our world.
 object{drone rotate<0, 180,0> translate<0, 5, 0> scale 0.5 Spline_Trans(Runway_max, clock*Cam_spline_movespeed, y, 0.1, 0.5)}
@@ -153,7 +174,7 @@ object{Character rotate<0, 180, 0> scale 0.3 Spline_Trans(Runway_max, clock*Cam_
 // insert any other objects here:
 
 
-// describes a box - the weed-plane - in the first "corner" of the runwaymax
+// describes a box - the weed-plane
 box {
   START_POINT * GENERAL_SCALE, BOX_1_END * GENERAL_SCALE
   pigment {BOX_COLOR}
@@ -169,9 +190,21 @@ box {
 box {
   BOX_3_START * GENERAL_SCALE, BOX_3_END * GENERAL_SCALE
   pigment {BOX_COLOR}
+  rotate<0,10,0>
+}
+
+box {
+  BOX_3_START * GENERAL_SCALE, BOX_3_END * GENERAL_SCALE
+  pigment {BOX_COLOR}
 }
 
 
+// declare loops:
+
+object{Running_Loop scale 0.5 * GENERAL_SCALE translate<0,0,0> Spline_Trans(Runway_max, 20, y, 0.1, 0.5)}
+object{Running_Loop scale 0.5 * GENERAL_SCALE translate<0,0,0> Spline_Trans(Runway_max, 23, y, 0.1, 0.5) translate<2,0,0>}
+object{Running_Loop scale 0.5 * GENERAL_SCALE translate<0,0,0> rotate<0,-80,0> Spline_Trans(Runway_max, 25, y, 0.1, 0.5)}
+object{Running_Loop scale 0.5 * GENERAL_SCALE translate<0,0,0> rotate<0,-80,0> Spline_Trans(Runway_max, 28, y, 0.1, 0.5) translate<0,0,5>}
 
 #declare Pillar_tri = object {Fancy_Pillar(0,0,0) scale GENERAL_SCALE}
 //in the first curve
@@ -185,8 +218,9 @@ object {Fancy_Pillar(14, 0, 25) scale GENERAL_SCALE}
 object {Fancy_Pillar(10, 0, 29) scale GENERAL_SCALE}
 
 //in the first "loop" in the runway:
-object{Wobbel(Cam_spline_movespeed, 5) scale 6 translate WOBBEL_1_LOCATION}
+object{Wobbel(Cam_spline_movespeed, 5) scale 3*GENERAL_SCALE translate WOBBEL_1_LOCATION}
 
+//arrange balls on the first box, BOX_1
 #declare Z_delay_ball = 0;     // start
 #while (Z_delay_ball < BOX_1_END.z)
   object{Ball translate  <START_POINT.x - 5, BOX_1_END.y +2 , 2 + Z_delay_ball + 11.5> * GENERAL_SCALE pigment{hexagon color rgb< rand(1
@@ -194,6 +228,17 @@ object{Wobbel(Cam_spline_movespeed, 5) scale 6 translate WOBBEL_1_LOCATION}
  color rgb< rand(2), rand(1), rand(3)>} scale 0.5 * GENERAL_SCALE rotate <0,37,0>} 
 
  #declare Z_delay_ball = Z_delay_ball + 3;  //next Nr
+
+#end 
+
+//arrange balls on the second box, BOX_2
+#declare X_Delay_Ball = 0;     // start
+#while (X_Delay_Ball > (BOX_2_END.x - BOX_2_START.x))
+  object{Ball translate  <BOX_2_START.x -1.5 + X_Delay_Ball, BOX_2_START.y +2 , BOX_2_START.z + (BOX_2_END.z - BOX_2_START.z) /2 > * GENERAL_SCALE pigment{hexagon color rgb< rand(1
+), rand(1), rand(3)>, color rgb< rand(2), rand(1), rand(3)>,
+ color rgb< rand(2), rand(1), rand(3)>} scale 0.5 * GENERAL_SCALE} 
+
+ #declare X_Delay_Ball = X_Delay_Ball - 3;  //next Nr
 
 #end //
 
@@ -213,7 +258,7 @@ object{Wobbel(Cam_spline_movespeed, 5) scale 6 translate WOBBEL_1_LOCATION}
  
 
 
-union{
+/**union{
   #local i = 0;     // start
   #local end_index = 100;  // end
   #while (i <= end_index)
@@ -223,6 +268,47 @@ union{
     } 
     #local i = i + 0.005;
     #end // -------- end of loop
- }
+ }**/
  
+// Thorben's Section
+
+object{Wobbel(Cam_spline_movespeed, 5) scale 3*GENERAL_SCALE translate WOBBEL_2_LOCATION}
+object{Wobbel(Cam_spline_movespeed, 5) scale 3*GENERAL_SCALE translate WOBBEL_3_LOCATION}
+object{Wobbel(Cam_spline_movespeed, 5) scale 3*GENERAL_SCALE translate WOBBEL_4_LOCATION}
+object{Wobbel(Cam_spline_movespeed, 5) scale 3*GENERAL_SCALE translate WOBBEL_5_LOCATION}
+object{Wobbel(Cam_spline_movespeed, 5) scale 3*GENERAL_SCALE translate WOBBEL_6_LOCATION}
+object{Wobbel(Cam_spline_movespeed, 5) scale 3*GENERAL_SCALE translate WOBBEL_7_LOCATION}
+object{Wobbel(Cam_spline_movespeed, 5) scale 3*GENERAL_SCALE translate WOBBEL_8_LOCATION}
+object{Wobbel(Cam_spline_movespeed, 5) scale 3*GENERAL_SCALE translate WOBBEL_9_LOCATION}
+object{Wobbel(Cam_spline_movespeed, 5) scale 3*GENERAL_SCALE translate WOBBEL_10_LOCATION}
+object{Wobbel(Cam_spline_movespeed, 5) scale 3*GENERAL_SCALE translate WOBBEL_11_LOCATION}
+object{Wobbel(Cam_spline_movespeed, 5) scale 3*GENERAL_SCALE translate WOBBEL_12_LOCATION}
+object{Wobbel(Cam_spline_movespeed, 5) scale 3*GENERAL_SCALE translate WOBBEL_13_LOCATION}
+object{Wobbel(Cam_spline_movespeed, 5) scale 3*GENERAL_SCALE translate WOBBEL_14_LOCATION}
+object{Wobbel(Cam_spline_movespeed, 5) scale 3*GENERAL_SCALE translate WOBBEL_15_LOCATION}
+object{Wobbel(Cam_spline_movespeed, 5) scale 3*GENERAL_SCALE translate WOBBEL_16_LOCATION}
+
+
+object {Fancy_Pillar(20, 0, 115) scale GENERAL_SCALE}
+object {Fancy_Pillar(20, 0, 110) scale GENERAL_SCALE}
+object {Fancy_Pillar(25, 0, 115) scale GENERAL_SCALE}
+object {Fancy_Pillar(25, 0, 110) scale GENERAL_SCALE}
+object {Fancy_Pillar(15, 0, 110) scale GENERAL_SCALE}
+object {Fancy_Pillar(15, 0, 115) scale GENERAL_SCALE}
+object {Fancy_Pillar(5, 0, 110) scale GENERAL_SCALE}
+object {Fancy_Pillar(5, 0, 115) scale GENERAL_SCALE}
+object {Fancy_Pillar(10, 0, 110) scale GENERAL_SCALE}
+object {Fancy_Pillar(10, 0, 115) scale GENERAL_SCALE}
+object {Fancy_Pillar(-1, 0, 110) scale GENERAL_SCALE}
+object {Fancy_Pillar(0, 0, 115) scale GENERAL_SCALE}
+object {Fancy_Pillar(-5, 0, 110) scale GENERAL_SCALE}
+object {Fancy_Pillar(-5, 0, 115) scale GENERAL_SCALE}
+object {Fancy_Pillar(-10, 0, 110) scale GENERAL_SCALE}
+object {Fancy_Pillar(-10, 0, 115) scale GENERAL_SCALE}
+object {Fancy_Pillar(-25, 0, 110) scale GENERAL_SCALE}
+object {Fancy_Pillar(-25, 0, 115) scale GENERAL_SCALE}
+object {Fancy_Pillar(-15, 0, 115) scale GENERAL_SCALE}
+object {Fancy_Pillar(-15, 0, 110) scale GENERAL_SCALE}
+object {Fancy_Pillar(-20, 0, 110) scale GENERAL_SCALE}
+object {Fancy_Pillar(-20, 0, 115) scale GENERAL_SCALE}
 
