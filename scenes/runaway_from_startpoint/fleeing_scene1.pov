@@ -1,13 +1,14 @@
 #include "transforms.inc"
 #include "colors.inc"
 #include "../../objects/spline_macro.inc"
-#include "../../objects/checked_ball.inc"
 #include "../../objects/fancy_pillar.inc"
 #include "../../util/positioning_utils.inc"
 #include "../../objects/maenchen.inc"
 #include "../../objects/drone.inc"
 #include "../../objects/wobbel.inc"
 #include "../../objects/checked_ball.inc"
+#include "../../objects/loop.inc"
+
 
 light_source {
   <-1000, 200, -200> White
@@ -157,7 +158,7 @@ object{Character rotate<0, 180, 0> scale 0.3 Spline_Trans(Runway_max, clock*Cam_
 // insert any other objects here:
 
 
-// describes a box - the weed-plane - in the first "corner" of the runwaymax
+// describes a box - the weed-plane
 box {
   START_POINT * GENERAL_SCALE, BOX_1_END * GENERAL_SCALE
   pigment {BOX_COLOR}
@@ -182,7 +183,12 @@ box {
 }
 
 
+// declare loops:
 
+object{Running_Loop scale 0.5 * GENERAL_SCALE translate<0,0,0> Spline_Trans(Runway_max, 20, y, 0.1, 0.5)}
+object{Running_Loop scale 0.5 * GENERAL_SCALE translate<0,0,0> Spline_Trans(Runway_max, 23, y, 0.1, 0.5) translate<2,0,0>}
+object{Running_Loop scale 0.5 * GENERAL_SCALE translate<0,0,0> rotate<0,-80,0> Spline_Trans(Runway_max, 25, y, 0.1, 0.5)}
+object{Running_Loop scale 0.5 * GENERAL_SCALE translate<0,0,0> rotate<0,-80,0> Spline_Trans(Runway_max, 28, y, 0.1, 0.5) translate<0,0,5>}
 
 #declare Pillar_tri = object {Fancy_Pillar(0,0,0) scale GENERAL_SCALE}
 //in the first curve
