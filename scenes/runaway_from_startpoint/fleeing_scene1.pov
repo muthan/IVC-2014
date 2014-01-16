@@ -22,6 +22,8 @@ light_source {
 #declare BOX_3_START = <-3,0,45>;
 #declare BOX_3_END = <-10,0,50>;
 #declare WOBBEL_1_LOCATION = <-27, 0, 117>;
+#declare WOBBEL_2_LOCATION = <40,0,260>;
+#declare WOBBEL_3_LOCATION = <40,5,260>;
 #declare FIRST_RUN_LENGTH = 40;
 #declare SECOND_RUN_LENGTH = 80;
 #declare SECOND_RUN_CURVE = -20;
@@ -194,7 +196,7 @@ object {Fancy_Pillar(14, 0, 25) scale GENERAL_SCALE}
 object {Fancy_Pillar(10, 0, 29) scale GENERAL_SCALE}
 
 //in the first "loop" in the runway:
-object{Wobbel(Cam_spline_movespeed, 5) scale 6 translate WOBBEL_1_LOCATION}
+object{Wobbel(Cam_spline_movespeed, 5) scale 3*GENERAL_SCALE translate WOBBEL_1_LOCATION}
 
 //arrange balls on the first box, BOX_1
 #declare Z_delay_ball = 0;     // start
@@ -246,4 +248,30 @@ union{
     #end // -------- end of loop
  }
  
+// Thorben's Abschnitt
+
+object{Wobbel(Cam_spline_movespeed, 5) scale 3*GENERAL_SCALE translate WOBBEL_2_LOCATION}
+object{Wobbel(Cam_spline_movespeed, 5) scale 3*GENERAL_SCALE translate WOBBEL_3_LOCATION}
+
+
+object {Fancy_Pillar(20, 0, 115) scale GENERAL_SCALE}
+object {Fancy_Pillar(20, 0, 110) scale GENERAL_SCALE}
+object {Fancy_Pillar(25, 0, 115) scale GENERAL_SCALE}
+object {Fancy_Pillar(25, 0, 110) scale GENERAL_SCALE}
+object {Fancy_Pillar(15, 0, 110) scale GENERAL_SCALE}
+object {Fancy_Pillar(15, 0, 115) scale GENERAL_SCALE}
+object {Fancy_Pillar(5, 0, 110) scale GENERAL_SCALE}
+object {Fancy_Pillar(5, 0, 115) scale GENERAL_SCALE}
+object {Fancy_Pillar(10, 0, 110) scale GENERAL_SCALE}
+object {Fancy_Pillar(10, 0, 115) scale GENERAL_SCALE}
+object {Fancy_Pillar(-1, 0, 110) scale GENERAL_SCALE}
+object {Fancy_Pillar(0, 0, 115) scale GENERAL_SCALE}
+object {Fancy_Pillar(-5, 0, 110) scale GENERAL_SCALE}
+object {Fancy_Pillar(-5, 0, 115) scale GENERAL_SCALE}
+object {Fancy_Pillar(-10, 0, 110) scale GENERAL_SCALE}
+object {Fancy_Pillar(-10, 0, 115) scale GENERAL_SCALE}
+object {Fancy_Pillar(-25, 0, 110) scale GENERAL_SCALE}
+object {Fancy_Pillar(-25, 0, 115) scale GENERAL_SCALE}
+object {Fancy_Pillar(-20, 0, 110) scale GENERAL_SCALE}
+object {Fancy_Pillar(-20, 0, 115) scale GENERAL_SCALE}
 
