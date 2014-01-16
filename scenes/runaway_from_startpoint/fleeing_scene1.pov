@@ -14,7 +14,8 @@ light_source {
   <-1000, 200, -200> White
 }
 
-// edit all constants here
+// edit all constants here, this are mainly the object locations.
+// so if specific objects shall be seated somewhere else, edit that here!
 
 #declare START_POINT = <0,0,0>;
 #declare BOX_1_END = <3,0,9>;
@@ -158,7 +159,7 @@ light_source {
 
 // The ground. 
 background {color<0.6,0.3,0.9>}
-plane { y, -1 
+plane { y, 0 
   pigment{color<0.6,0.3,0.9>}
 }
 
@@ -257,7 +258,7 @@ object{Wobbel(Cam_spline_movespeed, 5) scale 3*GENERAL_SCALE translate WOBBEL_1_
  
 
 
-union{
+/**union{
   #local i = 0;     // start
   #local end_index = 100;  // end
   #while (i <= end_index)
@@ -267,7 +268,7 @@ union{
     } 
     #local i = i + 0.005;
     #end // -------- end of loop
- }
+ }**/
  
 // Thorben's Section
 
