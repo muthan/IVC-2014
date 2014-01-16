@@ -37,9 +37,9 @@ light_source {
 #declare WOBBEL_11_LOCATION = <10,0,180>;
 #declare WOBBEL_12_LOCATION = <-10,0,180>;
 #declare WOBBEL_13_LOCATION = <-10,10,180>;
-#declare WOBBEL_14_LOCATION = <50,0,290>;
-#declare WOBBEL_15_LOCATION = <40,5,260>;
-#declare WOBBEL_16_LOCATION = <40,5,260>;
+#declare WOBBEL_14_LOCATION = <50,0,300>;
+#declare WOBBEL_15_LOCATION = <60,0,310>;
+#declare WOBBEL_16_LOCATION = <70,0,320>;
 
 #declare FIRST_RUN_LENGTH = 40;
 #declare SECOND_RUN_LENGTH = 80;
