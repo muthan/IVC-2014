@@ -236,7 +236,7 @@ object{Running_Loop scale 0.5 * GENERAL_SCALE translate<0,0,0> rotate<0,-80,0> S
 
 #declare Pillar_tri = object {Fancy_Pillar(0,0,0) scale GENERAL_SCALE}
 //in the first curve
-PositionAsTriangle_2D(Pillar_tri, 13, 0, 43, 5)
+//PositionAsTriangle_2D(Pillar_tri, 13, 0, 43, 5)
 
 //outisde the first curve
 object {Fancy_Pillar(12, 0, 18) scale GENERAL_SCALE}
