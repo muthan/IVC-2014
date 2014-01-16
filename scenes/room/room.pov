@@ -5,6 +5,7 @@
 #include "../../objects/lamp.inc"
 #include "../../objects/spline_macro.inc"
 #include "../../objects/tornado.inc"
+#include "../../objects/maenchen.inc"
 
 background { Black }
 
@@ -15,7 +16,7 @@ camera {
 }
 
 light_source {
-  <-1000, 200, -200> White
+  <-10, 200, -200> White
 }
 
 plane{ <0,0.1,0>, 0 
@@ -53,7 +54,16 @@ object { Tornado(0)
 }
 
 
-#declare Testspline = spline {TornadoUpwardsSpline(0.5, 0.5, 1, 0, 0.01)}
+#declare Test_spline = spline {TornadoUpwardsSpline(0.5, 0.5, 1, 0, 0.01)}
+object { man_tornado
+  scale 0.02
+  rotate <90,0,0>
+  #if (clock > 0.5)
+    rotate y*clock*360*5
+  #end
+  translate Test_spline(clock)
+  //translate <0.5,0.5,0>
+}
 // visualize our spline, uncomment for usage:
 /**union{
   #local i = 0;     // start
