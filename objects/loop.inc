@@ -13,21 +13,6 @@
 #declare Outer_Color = rgb<0,0.7,0.28>;
  
 
-//--------------------------------------------------------------------------
-camera{ // ultra_wide_angle // orthographic 
-        location Camera_Location
-        right    x*image_width/image_height
-        angle    Camera_Angle
-        look_at  Camera_Look_At
-      }
-
-background {White}
-
-light_source {
-  
-    <1000, 1000, 0> White
-}
-
 #declare T_Map = // transparency map
 pigment{
   // need to provide relative path from executing script, which is to be found under ../../scenes/world.pov
@@ -70,7 +55,7 @@ torus{ 5.0, 1.0
        translate<1,10,0>
        material{ Surface_Material2
           scale <100,100,100> 
-          rotate<75*clock, 90, 90>}
+          rotate<360*clock, 90, 90>}
         rotate<90, 0,0>
      } //------------------------------
 
@@ -80,7 +65,7 @@ torus{ 5.0, 1.0
        translate<-5,-1,0>
        material{ Surface_Material2
           scale <1,1,1> 
-          rotate<75*clock, 90, 90>}
+          rotate<360*clock, 90, 90>}
         rotate<90, 0,0>
      } //------------------------------
 

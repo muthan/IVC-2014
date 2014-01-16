@@ -17,12 +17,12 @@ light_source {
 // edit all constants here, this are mainly the object locations.
 // so if specific objects shall be seated somewhere else, edit that here!
 
-#declare START_POINT = <0,0,0>;
-#declare BOX_1_END = <3,0,9>;
-#declare BOX_2_START = <-28,0,56>;
-#declare BOX_2_END = <-45,0,59>;
-#declare BOX_3_START = <-3,0,45>;
-#declare BOX_3_END = <-10,0,50>;
+#declare START_POINT = <0,0.1,0>;
+#declare BOX_1_END = <3,0.1,9>;
+#declare BOX_2_START = <-28,0.1,56>;
+#declare BOX_2_END = <-45,0.1,59>;
+#declare BOX_3_START = <-3,0.1,45>;
+#declare BOX_3_END = <-10,0.1,50>;
 
 #declare WOBBEL_1_LOCATION = <-27, 0, 117>;
 #declare WOBBEL_2_LOCATION = <40,0,260>;
@@ -158,10 +158,36 @@ light_source {
 
 
 // The ground. 
-background {color<0.6,0.3,0.9>}
 plane { y, 0 
   pigment{color<0.6,0.3,0.9>}
 }
+
+#declare Wall_mat = material{ Surface_Material2
+          scale <1,1,1> 
+          rotate<360*clock, 90, 90>};
+//The wall
+
+box { 
+  <-95,0,105>, <-105,25,113>
+  material{Wall_mat}
+}
+box { 
+  <-105,0,110>, <-115,15,130>
+  material{Wall_mat}
+}
+box { 
+  <-115,0,120>, <-125,20,150>
+  material{Wall_mat}
+}
+
+
+box { 
+  <-103,0,150>, <-120,20,160>
+  material{Wall_mat}
+}
+
+
+
 
 // declare the drone and the main character (the stick man) which will be chased by the drone through our world.
 object{drone rotate<0, 180,0> translate<0, 5, 0> scale 0.5 Spline_Trans(Runway_max, clock*Cam_spline_movespeed, y, 0.1, 0.5)}
@@ -199,6 +225,8 @@ box {
 }
 
 
+
+
 // declare loops:
 
 object{Running_Loop scale 0.5 * GENERAL_SCALE translate<0,0,0> Spline_Trans(Runway_max, 20, y, 0.1, 0.5)}
@@ -221,26 +249,24 @@ object {Fancy_Pillar(10, 0, 29) scale GENERAL_SCALE}
 object{Wobbel(Cam_spline_movespeed, 5) scale 3*GENERAL_SCALE translate WOBBEL_1_LOCATION}
 
 //arrange balls on the first box, BOX_1
-#declare Z_delay_ball = 0;     // start
+#declare Z_delay_ball = 0;   
 #while (Z_delay_ball < BOX_1_END.z)
   object{Ball translate  <START_POINT.x - 5, BOX_1_END.y +2 , 2 + Z_delay_ball + 11.5> * GENERAL_SCALE pigment{hexagon color rgb< rand(1
 ), rand(1), rand(3)>, color rgb< rand(2), rand(1), rand(3)>,
  color rgb< rand(2), rand(1), rand(3)>} scale 0.5 * GENERAL_SCALE rotate <0,37,0>} 
 
- #declare Z_delay_ball = Z_delay_ball + 3;  //next Nr
-
-#end 
+ #declare Z_delay_ball = Z_delay_ball + 3; 
+ #end 
 
 //arrange balls on the second box, BOX_2
-#declare X_Delay_Ball = 0;     // start
+#declare X_Delay_Ball = 0;    
 #while (X_Delay_Ball > (BOX_2_END.x - BOX_2_START.x))
   object{Ball translate  <BOX_2_START.x -1.5 + X_Delay_Ball, BOX_2_START.y +2 , BOX_2_START.z + (BOX_2_END.z - BOX_2_START.z) /2 > * GENERAL_SCALE pigment{hexagon color rgb< rand(1
 ), rand(1), rand(3)>, color rgb< rand(2), rand(1), rand(3)>,
  color rgb< rand(2), rand(1), rand(3)>} scale 0.5 * GENERAL_SCALE} 
 
- #declare X_Delay_Ball = X_Delay_Ball - 3;  //next Nr
-
-#end //
+ #declare X_Delay_Ball = X_Delay_Ball - 3; 
+ #end 
 
 
 /**union{
@@ -258,7 +284,7 @@ object{Wobbel(Cam_spline_movespeed, 5) scale 3*GENERAL_SCALE translate WOBBEL_1_
  
 
 
-/**union{
+union{
   #local i = 0;     // start
   #local end_index = 100;  // end
   #while (i <= end_index)
@@ -268,7 +294,7 @@ object{Wobbel(Cam_spline_movespeed, 5) scale 3*GENERAL_SCALE translate WOBBEL_1_
     } 
     #local i = i + 0.005;
     #end // -------- end of loop
- }**/
+ }
  
 // Thorben's Section
 
