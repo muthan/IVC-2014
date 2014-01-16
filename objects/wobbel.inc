@@ -15,13 +15,13 @@ union {
    #local RandScale = (1+0.1*rand(Random_1)); 
    #local Position  = RandScale * VRand_On_Sphere(Random_1);
    #local RandDirection2 = LowOffset + ((1*Clock_speed*Final_Clock - abs(2 * Clock_speed* clock -1*Clock_speed*Final_Clock) )/(Clock_speed*Final_Clock)) * 0.7;
-   #local RandDirection = sin(clock/Final_Clock * Clock_speed/2*pi);
+   #local RandDirection = sin(5*clock/Final_Clock * Clock_speed/2*pi);
    #local Random = rand(Random_1);
    
    union{
 
    cone{ <0,0,0>, 0.02, Position, 0.01 
-        scale<RandDirection, RandDirection, RandDirection>
+        scale <RandDirection, RandDirection, RandDirection>
         texture { pigment{ color rgb< 0.1, 0.85, 0.5> }  
                   normal { bumps 0.5 scale 0.05 }
                   finish { phong 1 }
