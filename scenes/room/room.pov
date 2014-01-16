@@ -55,17 +55,18 @@ object { Tornado(0)
 
 
 #if (clock >= 0.5)
-#declare Test_spline = spline {TornadoUpwardsSpline(0.5, 0.45, 1, -0.1, 0.01)}
-object { man_tornado
-  scale 0.02
-  rotate <90,0,0>
-  #if (clock > 0.65)
-    rotate y*clock*360*5
-  #end
-  
-  translate Test_spline(clock)
-  //translate <0.5,0.5,0>
-}
+  #declare Test_spline = spline {TornadoUpwardsSpline(0.5, 0.45, 1, -0.1, 0.01)}
+  object { man_tornado
+    scale 0.02
+    #if (clock > 0.65)
+      rotate y*clock*360*5
+    #else
+      rotate <90,0,0>
+    #end
+    
+    translate Test_spline(clock)
+    //translate <0.5,0.5,0>
+  }
 #end
 // visualize our spline, uncomment for usage:
 /**union{
