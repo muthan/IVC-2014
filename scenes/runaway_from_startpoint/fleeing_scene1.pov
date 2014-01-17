@@ -162,33 +162,6 @@ plane { y, 0
   pigment{color<0.6,0.3,0.9>}
 }
 
-#declare Wall_mat = material{ Surface_Material2
-          scale <1,1,1> 
-          rotate<360*clock, 90, 90>};
-//The wall
-
-box { 
-  <-95,0,105>, <-105,25,113>
-  material{Wall_mat}
-}
-box { 
-  <-105,0,110>, <-115,15,130>
-  material{Wall_mat}
-}
-box { 
-  <-115,0,120>, <-125,20,150>
-  material{Wall_mat}
-}
-
-
-box { 
-  <-103,0,150>, <-120,20,160>
-  material{Wall_mat}
-}
-
-
-
-
 // declare the drone and the main character (the stick man) which will be chased by the drone through our world.
 object{drone rotate<0, 180,0> translate<0, 5, 0> scale 0.5 Spline_Trans(Runway_max, clock*Cam_spline_movespeed, y, 0.1, 0.5)}
 
@@ -224,30 +197,6 @@ box {
   pigment {BOX_COLOR}
 }
 
-
-
-
-// declare loops:
-
-object{Running_Loop scale 0.5 * GENERAL_SCALE translate<0,0,0> Spline_Trans(Runway_max, 20, y, 0.1, 0.5)}
-object{Running_Loop scale 0.5 * GENERAL_SCALE translate<0,0,0> Spline_Trans(Runway_max, 23, y, 0.1, 0.5) translate<2,0,0>}
-object{Running_Loop scale 0.5 * GENERAL_SCALE translate<0,0,0> rotate<0,-80,0> Spline_Trans(Runway_max, 25, y, 0.1, 0.5)}
-object{Running_Loop scale 0.5 * GENERAL_SCALE translate<0,0,0> rotate<0,-80,0> Spline_Trans(Runway_max, 28, y, 0.1, 0.5) translate<0,0,5>}
-
-#declare Pillar_tri = object {Fancy_Pillar(0,0,0) scale GENERAL_SCALE}
-//in the first curve
-//PositionAsTriangle_2D(Pillar_tri, 13, 0, 43, 5)
-
-//outisde the first curve
-object {Fancy_Pillar(12, 0, 18) scale GENERAL_SCALE}
-object {Fancy_Pillar(14, 0, 20) scale GENERAL_SCALE}
-object {Fancy_Pillar(15, 0, 22) scale GENERAL_SCALE}
-object {Fancy_Pillar(14, 0, 25) scale GENERAL_SCALE}
-object {Fancy_Pillar(10, 0, 29) scale GENERAL_SCALE}
-
-//in the first "loop" in the runway:
-object{Wobbel(Cam_spline_movespeed, 5) scale 3*GENERAL_SCALE translate WOBBEL_1_LOCATION}
-
 //arrange balls on the first box, BOX_1
 #declare Z_delay_ball = 0;   
 #while (Z_delay_ball < BOX_1_END.z)
@@ -258,6 +207,60 @@ object{Wobbel(Cam_spline_movespeed, 5) scale 3*GENERAL_SCALE translate WOBBEL_1_
  #declare Z_delay_ball = Z_delay_ball + 3; 
  #end 
 
+#declare Pillar_tri = object {Fancy_Pillar(0,0,0) scale GENERAL_SCALE}
+//in the first curve
+PositionAsTriangle_2D(Pillar_tri, 13, 0, 43, 5)
+
+//outisde the first curve
+object {Fancy_Pillar(12, 0, 18) scale GENERAL_SCALE}
+object {Fancy_Pillar(14, 0, 20) scale GENERAL_SCALE}
+object {Fancy_Pillar(15, 0, 22) scale GENERAL_SCALE}
+object {Fancy_Pillar(14, 0, 25) scale GENERAL_SCALE}
+object {Fancy_Pillar(10, 0, 29) scale GENERAL_SCALE}
+
+// declare loops between the first curve and the loop:
+
+object{Running_Loop scale 0.5 * GENERAL_SCALE translate<0,0,0> Spline_Trans(Runway_max, 20, y, 0.1, 0.5)}
+object{Running_Loop scale 0.5 * GENERAL_SCALE translate<0,0,0> Spline_Trans(Runway_max, 23, y, 0.1, 0.5) translate<2,0,0>}
+object{Running_Loop scale 0.5 * GENERAL_SCALE translate<0,0,0> rotate<0,-80,0> Spline_Trans(Runway_max, 25, y, 0.1, 0.5)}
+object{Running_Loop scale 0.5 * GENERAL_SCALE translate<0,0,0> rotate<0,-80,0> Spline_Trans(Runway_max, 28, y, 0.1, 0.5) translate<0,0,5>}
+
+//in the first "loop" in the runway:
+object{Wobbel(Cam_spline_movespeed, 5) scale 3*GENERAL_SCALE translate WOBBEL_1_LOCATION}
+
+//The wall
+#declare Wall_mat = material{ Surface_Material2
+          scale <1,1,1> 
+          rotate<360*clock, 90, 90>};
+
+box { 
+  <-95,0,105>, <-105,25,113>
+  material{Wall_mat}
+}
+box { 
+  <-105,0,110>, <-115,15,130>
+  material{Wall_mat}
+}
+box { 
+  <-115,0,120>, <-125,20,150>
+  material{Wall_mat}
+}
+
+
+box { 
+  <-103,0,150>, <-120,20,160>
+  material{Wall_mat}
+}
+
+
+//build a great sphere which is just there and fills room
+
+
+
+
+
+
+//meanwhile we are behind the first loop, in the second "curve"
 //arrange balls on the second box, BOX_2
 #declare X_Delay_Ball = 0;    
 #while (X_Delay_Ball > (BOX_2_END.x - BOX_2_START.x))
@@ -269,20 +272,8 @@ object{Wobbel(Cam_spline_movespeed, 5) scale 3*GENERAL_SCALE translate WOBBEL_1_
  #end 
 
 
-/**union{
-  #local i = 0;     // start
-  #local end_index = 100;  // end
-  #while (i <= end_index)
-    sphere{ <0,0,0>, 0.2
-      pigment{ color rgb<1,0.3,0>}
-      translate Runway_right_align(i)
-    } 
-    #local i = i + 0.005;
-    #end // -------- end of loop
- }
-**/
  
-
+//visualize the runway
 
 union{
   #local i = 0;     // start
