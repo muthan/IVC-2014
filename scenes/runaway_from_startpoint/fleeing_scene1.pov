@@ -11,7 +11,7 @@
 
 
 light_source {
-  <-1000, 200, -200> White
+  <-100, 300, -500> White
 }
 
 // edit all constants here, this are mainly the object locations.
@@ -126,7 +126,6 @@ light_source {
   camera {
       location <-10, 350, -10>
       look_at <-40, 3, 160>
-      angle 60
   }
   #break
 #case(CAMERA_5)
@@ -171,6 +170,17 @@ object{Character rotate<0, 180, 0> scale 0.3 Spline_Trans(Runway_max, clock*Cam_
 
 
 // insert any other objects here:
+
+
+//build a great sphere which is just there and fills room
+#declare Sphere_mat = Surface_Material_From(color<1,0,0.4>, color<0,1,0.2>) //from the loop.inc
+          
+sphere {
+  <-90,0,15>, 80
+  material{Sphere_mat
+     scale <10,10,10> 
+    rotate<360*clock, 90, 90>}
+}
 
 
 // describes a box - the weed-plane
@@ -228,9 +238,21 @@ object{Running_Loop scale 0.5 * GENERAL_SCALE translate<0,0,0> rotate<0,-80,0> S
 //in the first "loop" in the runway:
 object{Wobbel(Cam_spline_movespeed, 5) scale 3*GENERAL_SCALE translate WOBBEL_1_LOCATION}
 
+
+//meanwhile we are behind the first loop, in the second "curve"
+//arrange balls on the second box, BOX_2
+#declare X_Delay_Ball = 0;    
+#while (X_Delay_Ball > (BOX_2_END.x - BOX_2_START.x))
+  object{Ball translate  <BOX_2_START.x -1.5 + X_Delay_Ball, BOX_2_START.y +2 , BOX_2_START.z + (BOX_2_END.z - BOX_2_START.z) /2 > * GENERAL_SCALE pigment{hexagon color rgb< rand(1
+), rand(1), rand(3)>, color rgb< rand(2), rand(1), rand(3)>,
+ color rgb< rand(2), rand(1), rand(3)>} scale 0.5 * GENERAL_SCALE} 
+
+ #declare X_Delay_Ball = X_Delay_Ball - 3; 
+ #end 
+
 //The wall
 #declare Wall_mat = material{ Surface_Material2
-          scale <1,1,1> 
+          scale <10,10,10> 
           rotate<360*clock, 90, 90>};
 
 box { 
@@ -253,24 +275,26 @@ box {
 }
 
 
-//build a great sphere which is just there and fills room
+#macro light_blob(position, col)
+light_source {<0,2,0> color col Spline_Trans(Runway_max, position, y, 0.1, 0.5)
+  looks_like {
+    sphere { <0,0,0>,0.1
+      texture {
+        pigment {color col}
+        finish { ambient 0.9
+           diffuse 0.1
+           phong 250
+        }
+      } 
+    } 
+  } 
+}
+#end
 
-
-
-
-
-
-//meanwhile we are behind the first loop, in the second "curve"
-//arrange balls on the second box, BOX_2
-#declare X_Delay_Ball = 0;    
-#while (X_Delay_Ball > (BOX_2_END.x - BOX_2_START.x))
-  object{Ball translate  <BOX_2_START.x -1.5 + X_Delay_Ball, BOX_2_START.y +2 , BOX_2_START.z + (BOX_2_END.z - BOX_2_START.z) /2 > * GENERAL_SCALE pigment{hexagon color rgb< rand(1
-), rand(1), rand(3)>, color rgb< rand(2), rand(1), rand(3)>,
- color rgb< rand(2), rand(1), rand(3)>} scale 0.5 * GENERAL_SCALE} 
-
- #declare X_Delay_Ball = X_Delay_Ball - 3; 
- #end 
-
+object{light_blob(44, Red)}
+object{light_blob(47, Blue)}
+object{light_blob(50, Yellow)}
+object{light_blob(54, White)}
 
  
 //visualize the runway

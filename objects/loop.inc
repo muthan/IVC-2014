@@ -50,6 +50,19 @@ material{
      }
   }
 
+#macro Surface_Material_From(inner_color, outer_color) 
+material {
+   texture{
+      pigment_pattern{ T_Map }
+      texture_map {
+        [0.0 pigment{inner_color}]
+        [0.3 pigment{outer_color}]
+       } 
+     }
+  }
+#end
+
+
 #declare Running_Loop = 
 torus{ 5.0, 1.0
        translate<1,10,0>
