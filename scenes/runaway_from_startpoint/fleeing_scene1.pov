@@ -8,6 +8,7 @@
 #include "../../objects/wobbel.inc"
 #include "../../objects/checked_ball.inc"
 #include "../../objects/loop.inc"
+#include "../world/world.pov"
 
 
 light_source {
@@ -59,26 +60,39 @@ light_source {
 #declare CAMERA_7 = 7; // view the first curve in the runway
 
 
-#declare CAMERA = 4;
+#declare CAMERA = 4; // if you use this, dont forget to comment out the moving cam below! 
 
 #declare clock_spline = spline {
   //only makes sense to use moving cams here!
   //else wise set the clock number manually, no need to animate things
-  linear_spline
+  linear_spline // linear, since we dont want higher function abstraction - we only need a discrete return val
     0, 2,
-    1, 2,
-    1.999999999, 2,
-    2, 3,
-    2.999999999, 3,
-    3, 2, 
-    4, 2,
-    5, 2
-
+    10, 2,
+    19.99999999, 2,
+    20, 3,
+    30, 3, 
+    39.99999999, 3,
+    40, 1,
+    50, 1,
+    60, 1,
+    69.99999999, 1,
+    70, 3,
+    80, 3,
+    90, 3,
+    100, 3
 }
+
+// use this  offset if rendered with Final_Clock=XXX, to always get a match of clock*Cam_spline_movespeed = 100!!!
+// calculate and set it here _before_ u render.
+// else wise use 100 when normal clock (==1) is used.
+#declare Cam_spline_movespeed = 2; // render with final clock = 50
 
 //this kinda rapes the intention of splines, but hey..!
 // takes the spline val calculated with the clock as parameter, which will then return a vector containing the wanted camera number.
-//#declare CAMERA = clock_spline(clock).x;
+/*
+ * here is the moving cam declaration | | |
+ *                                    v v v
+ */ //#declare CAMERA = clock_spline(clock*Cam_spline_movespeed).x;
 
 #declare Runway_1 = spline {RunawayStraight(START_POINT.x, START_POINT.y, START_POINT.z, FIRST_RUN_LENGTH)}
 #declare Runway_2 = spline {RunawayXCurve(START_POINT.x, SECOND_RUN_CURVE,  START_POINT.y, FIRST_RUN_LENGTH, SECOND_RUN_LENGTH)}
@@ -87,7 +101,7 @@ light_source {
 #declare Cam_Behind_Drone_View = spline {RunawayLongEven(START_POINT.x, START_POINT.y + 4, START_POINT.z, GENERAL_SCALE)}
 #declare Cam_In_Front_Of_Man = spline {RunawayLongEven(START_POINT.x, START_POINT.y + 1, START_POINT.z + 5, GENERAL_SCALE)}
 #declare Drone_View_Offset = 0;
-#declare Behind_Drone_View_Offset = -2;
+#declare Behind_Drone_View_Offset = -4;
 #declare In_Front_Of_Man_View_Offset = 5;
 #declare Look_at_Offset = 2;
 
@@ -95,8 +109,6 @@ light_source {
 #declare Runway_max = spline {RunawayLongEven(START_POINT.x, START_POINT.y, START_POINT.z, GENERAL_SCALE)}
 #declare Runway_right_align = spline {RunawayLongEven(START_POINT.x + RUNWAY_ALIGN_DIST, START_POINT.y, START_POINT.z, GENERAL_SCALE)}
 
-// use this  offset if rendered with Final_Clock=5, else wise use 100 when normal clock (==1) is used.
-#declare Cam_spline_movespeed = 20;
 
 //take the camera which has been declared above:
 #switch(CAMERA)
@@ -104,7 +116,7 @@ light_source {
   camera {
       location Cam_Drone_View(clock*Cam_spline_movespeed + Drone_View_Offset)
       look_at Runway_max(clock*Cam_spline_movespeed + Look_at_Offset)
-      angle 40
+      angle 60 // the drone cam has a wide angle :)
   }
   #break
 #case(CAMERA_2)
@@ -118,7 +130,6 @@ light_source {
   camera {
       location Cam_Behind_Drone_View(clock*Cam_spline_movespeed + Behind_Drone_View_Offset)
       look_at Runway_max(clock*Cam_spline_movespeed + Look_at_Offset)
-      angle 40
   }
   #break
 #case(CAMERA_4)
@@ -178,7 +189,7 @@ object{Character rotate<0, 180, 0> scale 0.3 Spline_Trans(Runway_max, clock*Cam_
 sphere {
   <-90,0,15>, 80
   material{Sphere_mat
-     scale <10,10,10> 
+     scale <25,25,25> 
     rotate<360*clock, 90, 90>}
 }
 
@@ -294,6 +305,7 @@ light_source {<0,2,0> color col Spline_Trans(Runway_max, position, y, 0.1, 0.5)
 object{light_blob(44, Red)}
 object{light_blob(47, Blue)}
 object{light_blob(50, Yellow)}
+object{light_blob(52, Blue)}
 object{light_blob(54, White)}
 
  
@@ -307,9 +319,12 @@ union{
       pigment{ color rgb<1,0.3,0>}
       translate Runway_max(i)
     } 
-    #local i = i + 0.005;
+    #local i = i + 0.0005;
     #end // -------- end of loop
  }
+
+//rotate the big box, to make the start on that box come nearer to the end of the other spline.
+object{On_The_Big_Box scale 0.5 translate<0,0,0> rotate<0,180,0> translate<90,0,210> }
  
 // Thorben's Section
 
