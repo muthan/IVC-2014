@@ -85,9 +85,10 @@ union{
 		translate<0,0,0>
 	}
 
-	light_source{<0,-1,0> color Red*1
-     looks_like{
-           sphere{ <0,0,0>,0.1
+	#if(mod(clock,2) <= 1 & mod(clock,2) > 0.5 )
+    light_source{<0,-1,0> color Red*1
+      looks_like{
+            sphere{ <0,0,0>,0.1
                    texture{
                    pigment{color Red}
                    finish {ambient 0.9
@@ -96,7 +97,9 @@ union{
                    } 
            } 
      } 
- }
+    }
+  #end
+
 					
 	object{Wings
 						 		texture{

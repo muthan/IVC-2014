@@ -3,10 +3,7 @@
 // provided parameters have to be: max_Y >= 40, max_Z >= 370 and x_Distotion < max_X
 #macro CurvedSpline(max_X, max_Y, max_Z, x_Distortion)
 natural_spline
-    0.00, < (max_X / 2) + x_Distortion, 0.0, 0.0>,
-    0.05, < (max_X / 2) - x_Distortion, 10.0, 0.0>,
-    0.10, < (max_X / 2) - x_Distortion, 25.0, 0.0>,
-    0.15, < (max_X / 2) + x_Distortion, 40.0, 0.0>,
+    0.15, < (max_X / 2) + x_Distortion, max_Y, 0.0>,
     0.20, < (max_X / 2) + x_Distortion, max_Y, 12.0>,
     0.25, < (max_X / 2) + x_Distortion, max_Y, 28.0>,
     0.30, < (max_X / 2) - x_Distortion, max_Y, 50.0>,
@@ -29,10 +26,7 @@ natural_spline
 // mostly the same spline as CurvedSpline but with a small y distortion somewhere in the middle ("jump")
 #macro CurvedSplineJump(max_X, max_Y, max_Z, x_Distortion)
 natural_spline
-    0.00, < (max_X / 2) + x_Distortion, 0.0, 0.0>,
-    0.05, < (max_X / 2) - x_Distortion, 10.0, 0.0>,
-    0.10, < (max_X / 2) - x_Distortion, 25.0, 0.0>,
-    0.15, < (max_X / 2) + x_Distortion, 40.0, 0.0>,
+    0.15, < (max_X / 2) + x_Distortion, max_Y, 0.0>,
     0.20, < (max_X / 2) + x_Distortion, max_Y, 12.0>,
     0.25, < (max_X / 2) + x_Distortion, max_Y, 28.0>,
     0.30, < (max_X / 2) - x_Distortion, max_Y, 50.0>,
@@ -168,10 +162,10 @@ natural_spline
     86, <x_loc + 60, y_loc, z_loc + 170> * my_scale, 
     88, <x_loc + 65, y_loc, z_loc + 175> * my_scale, 
     90, <x_loc + 70, y_loc, z_loc + 180> * my_scale, 
-    92, <x_loc + 55, y_loc, z_loc + 190> * my_scale, 
-    94 <x_loc + 55, y_loc, z_loc + 200> * my_scale, 
-    96, <x_loc + 40, y_loc, z_loc + 210> * my_scale, 
-    98, <x_loc + 24, y_loc, z_loc + 220> * my_scale, 
-    100, <x_loc + 20, y_loc, z_loc + 190> * my_scale,//end
-    102, <x_loc + 21, y_loc, z_loc + 185> * my_scale //control point for camera
+    92, <x_loc + 75, y_loc, z_loc + 170> * my_scale, 
+    94 <x_loc + 70, y_loc, z_loc + 160> * my_scale, 
+    96, <x_loc + 63, y_loc, z_loc + 150> * my_scale, 
+    98, <x_loc + 52, y_loc, z_loc + 130> * my_scale, 
+    100, <x_loc + 40, y_loc, z_loc + 108> * my_scale,//end
+    102, <x_loc + 39, y_loc, z_loc + 10> * my_scale //control point for camera
 #end

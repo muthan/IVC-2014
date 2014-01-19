@@ -136,10 +136,10 @@ union{
 /**
 * use -1 and 1 as arguments for right and left rotate.
 **/
-#macro manLooks(Dir) 
+#macro manLooks(Dir, Start_Offset) 
   union {
       object {head 
-              rotate <0,60*sin(Dir*0.5*pi*clock),0>
+              rotate <0,60*sin(Dir*0.5*pi*(clock-Start_Offset)),0>
               translate <0.0, 4.0, 0.0>
               }
       object {body translate <0.0, 2.0, 0.0>}
@@ -181,10 +181,10 @@ union{
 #end
 
 
-#declare man_lookup =
+#macro man_lookup(Start_Offset)
   union {
       object {head 
-              rotate <70*sin(0.25*pi*clock),0,0>
+              rotate <70*sin(0.25*pi*(clock-Start_Offset)),0,0>
               translate <0.0, 4.0, 0.0>
               }
       object {body translate <0.0, 2.0, 0.0>}
@@ -223,6 +223,7 @@ union{
         translate <0,2,0>
       }
 }
+#end
 
 #declare man_lookup_no_movement =
   union {
