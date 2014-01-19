@@ -17,7 +17,7 @@ union {
    //this was my first attempt:
    #local RandDirection2 = LowOffset + ((1*Clock_speed*Final_Clock - abs(2 * Clock_speed* clock -1*Clock_speed*Final_Clock) )/(Clock_speed*Final_Clock)) * 0.7;
    //this scales better with a clock > 1:
-   #local RandDirection = sin(5*clock/Final_Clock * Clock_speed/2*pi) + 0.5; //the add removes scaling issues.
+   #local RandDirection = sin(5*clock/Final_Clock * Clock_speed/2*pi) + 0.1; //the add removes scaling issues.
    #local Random = rand(Random_1);
    
    union{
