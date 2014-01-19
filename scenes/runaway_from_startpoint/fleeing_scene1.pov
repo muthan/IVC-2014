@@ -360,8 +360,8 @@ union{
 
 
 #if(ELEVATOR_SCENE = 1)
-  //place the elevator with height 11/50 
-  object{Elevator(ELEVATOR_LOC, 11/50)}
+  //place the elevator with height 
+  object{Elevator(ELEVATOR_LOC, 19/50)}
 #end 
 
 //rotate the big box, to make the start on that box come nearer to the end of the other spline.
