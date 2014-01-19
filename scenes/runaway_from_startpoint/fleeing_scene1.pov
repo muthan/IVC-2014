@@ -98,7 +98,8 @@ light_source {
 /*
  * here is the moving cam declaration | | |
  *                                    v v v
- */ #declare CAMERA = clock_spline(clock*Cam_spline_movespeed).x;
+ */
+//#declare CAMERA = clock_spline(clock*Cam_spline_movespeed).x;
 
 #declare Runway_1 = spline {RunawayStraight(START_POINT.x, START_POINT.y, START_POINT.z, FIRST_RUN_LENGTH)}
 #declare Runway_2 = spline {RunawayXCurve(START_POINT.x, SECOND_RUN_CURVE,  START_POINT.y, FIRST_RUN_LENGTH, SECOND_RUN_LENGTH)}
@@ -385,26 +386,77 @@ object{Wobbel(Cam_spline_movespeed, 5) scale 3*GENERAL_SCALE translate WOBBEL_15
 object{Wobbel(Cam_spline_movespeed, 5) scale 3*GENERAL_SCALE translate WOBBEL_16_LOCATION}
 
 
+object {Fancy_Pillar(80, 0, 115) scale GENERAL_SCALE}
+object {Fancy_Pillar(80, 0, 110) scale GENERAL_SCALE}
+object {Fancy_Pillar(75, 0, 115) scale GENERAL_SCALE}
+object {Fancy_Pillar(75, 0, 110) scale GENERAL_SCALE}
+object {Fancy_Pillar(70, 0, 115) scale GENERAL_SCALE}
+object {Fancy_Pillar(70, 0, 110) scale GENERAL_SCALE}
+object {Fancy_Pillar(65, 0, 115) scale GENERAL_SCALE}
+object {Fancy_Pillar(65, 0, 110) scale GENERAL_SCALE}
+object {Fancy_Pillar(60, 0, 115) scale GENERAL_SCALE}
+object {Fancy_Pillar(60, 0, 110) scale GENERAL_SCALE}
+object {Fancy_Pillar(55, 0, 115) scale GENERAL_SCALE}
+object {Fancy_Pillar(55, 0, 110) scale GENERAL_SCALE}
+object {Fancy_Pillar(50, 0, 110) scale GENERAL_SCALE}
+object {Fancy_Pillar(50, 0, 115) scale GENERAL_SCALE}
+object {Fancy_Pillar(45, 0, 115) scale GENERAL_SCALE}
+object {Fancy_Pillar(45, 0, 110) scale GENERAL_SCALE}
+//object {Fancy_Pillar(40, 0, 115) scale GENERAL_SCALE}
+//object {Fancy_Pillar(40, 0, 110) scale GENERAL_SCALE}
+object {Fancy_Pillar(35, 0, 115) scale GENERAL_SCALE}
+object {Fancy_Pillar(35, 0, 110) scale GENERAL_SCALE}
+object {Fancy_Pillar(30, 0, 115) scale GENERAL_SCALE}
+object {Fancy_Pillar(30, 0, 110) scale GENERAL_SCALE}
+object {Fancy_Pillar(25, 0, 115) scale GENERAL_SCALE}
+object {Fancy_Pillar(25, 0, 110) scale GENERAL_SCALE}
 object {Fancy_Pillar(20, 0, 115) scale GENERAL_SCALE}
 object {Fancy_Pillar(20, 0, 110) scale GENERAL_SCALE}
 object {Fancy_Pillar(25, 0, 115) scale GENERAL_SCALE}
 object {Fancy_Pillar(25, 0, 110) scale GENERAL_SCALE}
 object {Fancy_Pillar(15, 0, 110) scale GENERAL_SCALE}
 object {Fancy_Pillar(15, 0, 115) scale GENERAL_SCALE}
-object {Fancy_Pillar(5, 0, 110) scale GENERAL_SCALE}
-object {Fancy_Pillar(5, 0, 115) scale GENERAL_SCALE}
 object {Fancy_Pillar(10, 0, 110) scale GENERAL_SCALE}
 object {Fancy_Pillar(10, 0, 115) scale GENERAL_SCALE}
-object {Fancy_Pillar(-1, 0, 110) scale GENERAL_SCALE}
+object {Fancy_Pillar(5, 0, 110) scale GENERAL_SCALE}
+object {Fancy_Pillar(5, 0, 115) scale GENERAL_SCALE}
+object {Fancy_Pillar(2, 0, 110) scale GENERAL_SCALE}
 object {Fancy_Pillar(0, 0, 115) scale GENERAL_SCALE}
+object {Fancy_Pillar(-2, 0, 110) scale GENERAL_SCALE}
 object {Fancy_Pillar(-5, 0, 110) scale GENERAL_SCALE}
 object {Fancy_Pillar(-5, 0, 115) scale GENERAL_SCALE}
 object {Fancy_Pillar(-10, 0, 110) scale GENERAL_SCALE}
 object {Fancy_Pillar(-10, 0, 115) scale GENERAL_SCALE}
-object {Fancy_Pillar(-25, 0, 110) scale GENERAL_SCALE}
-object {Fancy_Pillar(-25, 0, 115) scale GENERAL_SCALE}
 object {Fancy_Pillar(-15, 0, 115) scale GENERAL_SCALE}
 object {Fancy_Pillar(-15, 0, 110) scale GENERAL_SCALE}
 object {Fancy_Pillar(-20, 0, 110) scale GENERAL_SCALE}
 object {Fancy_Pillar(-20, 0, 115) scale GENERAL_SCALE}
+object {Fancy_Pillar(-25, 0, 110) scale GENERAL_SCALE}
+object {Fancy_Pillar(-25, 0, 115) scale GENERAL_SCALE}
+object {Fancy_Pillar(-30, 0, 110) scale GENERAL_SCALE}
+object {Fancy_Pillar(-30, 0, 115) scale GENERAL_SCALE}
+object {Fancy_Pillar(-35, 0, 110) scale GENERAL_SCALE}
+object {Fancy_Pillar(-35, 0, 115) scale GENERAL_SCALE}
+object {Fancy_Pillar(-40, 0, 110) scale GENERAL_SCALE}
+object {Fancy_Pillar(-40, 0, 115) scale GENERAL_SCALE}
+object {Fancy_Pillar(-45, 0, 110) scale GENERAL_SCALE}
+object {Fancy_Pillar(-45, 0, 115) scale GENERAL_SCALE}
+object {Fancy_Pillar(-50, 0, 110) scale GENERAL_SCALE}
+object {Fancy_Pillar(-50, 0, 115) scale GENERAL_SCALE}
+object {Fancy_Pillar(-55, 0, 110) scale GENERAL_SCALE}
+object {Fancy_Pillar(-55, 0, 115) scale GENERAL_SCALE}
+object {Fancy_Pillar(-60, 0, 110) scale GENERAL_SCALE}
+object {Fancy_Pillar(-60, 0, 115) scale GENERAL_SCALE}
+object {Fancy_Pillar(-65, 0, 110) scale GENERAL_SCALE}
+object {Fancy_Pillar(-65, 0, 115) scale GENERAL_SCALE}
+object {Fancy_Pillar(-70, 0, 110) scale GENERAL_SCALE}
+object {Fancy_Pillar(-70, 0, 115) scale GENERAL_SCALE}
+object {Fancy_Pillar(-75, 0, 110) scale GENERAL_SCALE}
+object {Fancy_Pillar(-75, 0, 115) scale GENERAL_SCALE}
+object {Fancy_Pillar(-80, 0, 110) scale GENERAL_SCALE}
+object {Fancy_Pillar(-80, 0, 115) scale GENERAL_SCALE}
+object {Fancy_Pillar(-85, 0, 110) scale GENERAL_SCALE}
+object {Fancy_Pillar(-85, 0, 115) scale GENERAL_SCALE}
+object {Fancy_Pillar(-90, 0, 110) scale GENERAL_SCALE}
+object {Fancy_Pillar(-90, 0, 115) scale GENERAL_SCALE}
 
