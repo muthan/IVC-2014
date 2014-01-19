@@ -17,8 +17,8 @@ light_source {
   <-100, 300, -500> White
 }
 
-#declare START_SCENE = 1;
-#declare ELEVATOR_SCENE = 0;
+#declare START_SCENE = 0;
+#declare ELEVATOR_SCENE = 1;
 
 // edit all constants here, this are mainly the object locations.
 // so if specific objects shall be seated somewhere else, edit that here!
@@ -360,8 +360,8 @@ union{
 
 
 #if(ELEVATOR_SCENE = 1)
-  //place the elevator with height 10/50 
-  object{Elevator(ELEVATOR_LOC, 10/50)}
+  //place the elevator with height 11/50 
+  object{Elevator(ELEVATOR_LOC, 11/50)}
 #end 
 
 //rotate the big box, to make the start on that box come nearer to the end of the other spline.
