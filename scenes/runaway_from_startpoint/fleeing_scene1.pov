@@ -344,6 +344,7 @@ object{On_The_Big_Box scale 0.5 translate<0,0,0> rotate<0,180,0> translate<90,0,
  
 // Thorben's Section
 
+// Wobbels in the North
 object{Wobbel(Cam_spline_movespeed, 5) scale 3*GENERAL_SCALE translate WOBBEL_2_LOCATION}
 object{Wobbel(Cam_spline_movespeed, 5) scale 3*GENERAL_SCALE translate WOBBEL_3_LOCATION}
 object{Wobbel(Cam_spline_movespeed, 5) scale 3*GENERAL_SCALE translate WOBBEL_4_LOCATION}
@@ -360,7 +361,7 @@ object{Wobbel(Cam_spline_movespeed, 5) scale 3*GENERAL_SCALE translate WOBBEL_14
 object{Wobbel(Cam_spline_movespeed, 5) scale 3*GENERAL_SCALE translate WOBBEL_15_LOCATION}
 object{Wobbel(Cam_spline_movespeed, 5) scale 3*GENERAL_SCALE translate WOBBEL_16_LOCATION}
 
-
+// The Great Pillar Line in The North
 object {Fancy_Pillar(80, 0, 115) scale GENERAL_SCALE}
 object {Fancy_Pillar(80, 0, 110) scale GENERAL_SCALE}
 object {Fancy_Pillar(75, 0, 115) scale GENERAL_SCALE}
@@ -424,14 +425,73 @@ object {Fancy_Pillar(-60, 0, 110) scale GENERAL_SCALE}
 object {Fancy_Pillar(-60, 0, 115) scale GENERAL_SCALE}
 object {Fancy_Pillar(-65, 0, 110) scale GENERAL_SCALE}
 object {Fancy_Pillar(-65, 0, 115) scale GENERAL_SCALE}
-object {Fancy_Pillar(-70, 0, 110) scale GENERAL_SCALE}
-object {Fancy_Pillar(-70, 0, 115) scale GENERAL_SCALE}
-object {Fancy_Pillar(-75, 0, 110) scale GENERAL_SCALE}
-object {Fancy_Pillar(-75, 0, 115) scale GENERAL_SCALE}
-object {Fancy_Pillar(-80, 0, 110) scale GENERAL_SCALE}
-object {Fancy_Pillar(-80, 0, 115) scale GENERAL_SCALE}
-object {Fancy_Pillar(-85, 0, 110) scale GENERAL_SCALE}
-object {Fancy_Pillar(-85, 0, 115) scale GENERAL_SCALE}
-object {Fancy_Pillar(-90, 0, 110) scale GENERAL_SCALE}
-object {Fancy_Pillar(-90, 0, 115) scale GENERAL_SCALE}
+// Im berg Objektüberlagerung :
+//object {Fancy_Pillar(-70, 0, 110) scale GENERAL_SCALE}
+//object {Fancy_Pillar(-70, 0, 115) scale GENERAL_SCALE}
+//object {Fancy_Pillar(-75, 0, 110) scale GENERAL_SCALE}
+//object {Fancy_Pillar(-75, 0, 115) scale GENERAL_SCALE}
+//object {Fancy_Pillar(-80, 0, 110) scale GENERAL_SCALE}
+//object {Fancy_Pillar(-80, 0, 115) scale GENERAL_SCALE}
+//object {Fancy_Pillar(-85, 0, 110) scale GENERAL_SCALE}
+//object {Fancy_Pillar(-85, 0, 115) scale GENERAL_SCALE}
+//object {Fancy_Pillar(-90, 0, 110) scale GENERAL_SCALE}
+//object {Fancy_Pillar(-90, 0, 115) scale GENERAL_SCALE}
 
+
+//Northern Spere Mountains
+#declare Sphere_mat_North1 = Surface_Material_From(color<30/255,144/255,255/255>, color<255/255,255/255,0>) //from the loop.inc
+#declare Sphere_mat_North2 = Surface_Material_From(
+  color<255/255,255/255,0>,color<30/255,144/255,255/255>) //from the loop.inc
+         
+
+sphere {
+  <-250,0,320>, 150
+  material{Sphere_mat_North1
+     scale <25,25,25> 
+    rotate<90, 360*clock, 360*clock>}
+}
+
+
+
+sphere {
+  <-40,0,400>, 90
+  material{Sphere_mat_North2
+     scale <25,25,25> 
+    rotate<90, 360*clock, 90>}
+ }
+
+
+sphere {
+  <50,0,400>, 50
+  material{Sphere_mat_North1
+     scale <25,25,25> 
+    rotate<90, 90, 360*clock>}
+}
+
+sphere {
+  <120,0,450>, 70
+  material{Sphere_mat_North2
+     scale <25,25,25> 
+    rotate<360*clock, 180, 90>}
+}
+sphere {
+  <200,0,422>, 60
+  material{Sphere_mat_North1
+     scale <25,25,25> 
+    rotate<90, 360*clock, 90>}
+
+  }
+
+sphere {
+  <220,0,350>, 40
+  material{Sphere_mat_North2
+     scale <25,25,25> 
+    rotate<90, 180*clock, 180>}
+
+  }
+sphere {
+  <200,0,300>, 20
+  material{Sphere_mat_North1
+     scale <25,25,25> 
+    rotate<90, 90, 180*clock>}
+}
