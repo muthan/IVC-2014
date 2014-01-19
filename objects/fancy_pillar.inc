@@ -29,7 +29,7 @@ cone { 0, 0.3, <0, 5, 0>, 0.15
              emission <1.0,0.1,0.5>*7
           } } //Plexiglas_Ior
   finish { ambient rgb <0.4,0.2,0.5> }
-  rotate <0,-36000*clock, 0>
+  rotate <0,-360*clock, 0>
   translate <0,7,0>
 }
 
