@@ -46,12 +46,6 @@ natural_spline
     1.00, < (max_X / 2) - x_Distortion, max_Y, max_Z>
 #end
 
-#macro ElevatorSpline(x_loc, y_start, y_end, z_loc)
-linear_spline
-    0.00, < x_loc, y_start, z_loc>,
-    0.15, < x_loc, y_end, z_loc>
-#end
-
 // Creates a spline starting at <0,max_y,0>  and then slowly grows up to max_x/2
 // but has z-axis distortions with multiplier distortion_grade
 #macro TornadoSpline(max_X, max_Y, distortion_grade)
