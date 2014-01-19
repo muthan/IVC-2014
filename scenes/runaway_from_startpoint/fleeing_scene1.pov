@@ -1,4 +1,4 @@
-#version 3.7
+#version 3.7;
 #include "transforms.inc"
 #include "colors.inc"
 #include "../../objects/spline_macro.inc"
@@ -10,11 +10,15 @@
 #include "../../objects/checked_ball.inc"
 #include "../../objects/loop.inc"
 #include "../world/world.pov"
+#include "../../objects/elevator.inc"
 
 
 light_source {
   <-100, 300, -500> White
 }
+
+#declare START_SCENE = 1;
+#declare ELEVATOR_SCENE = 0;
 
 // edit all constants here, this are mainly the object locations.
 // so if specific objects shall be seated somewhere else, edit that here!
@@ -49,6 +53,7 @@ light_source {
 #declare BOX_COLOR = color rgb< 0, 0.8, 0.3>;
 #declare GENERAL_SCALE = 2;
 #declare RUNWAY_ALIGN_DIST = 5;
+#declare ELEVATOR_LOC = <76,0,210>;
 
 //Select the camera here:
 
@@ -57,11 +62,11 @@ light_source {
 #declare CAMERA_3 = 3; // view behind the drone (moving cam)
 #declare CAMERA_4 = 4; // view whole world (static cam)
 #declare CAMERA_5 = 5; // view the startpoint (static cam)
-#declare CAMERA_6 = 6; // view the wobbel (static cam)
+#declare CAMERA_6 = 6; // view the elevator (moving cam)
 #declare CAMERA_7 = 7; // view the first curve in the runway
 
 
-#declare CAMERA = 4; // if you use this, dont forget to comment out the moving cam below! 
+#declare CAMERA =  6; // if you use this, dont forget to comment out the moving cam below! 
 
 #declare clock_spline = spline {
   //only makes sense to use moving cams here!
@@ -150,10 +155,11 @@ light_source {
   }
   #break
 #case(CAMERA_6)
-  //view the wobbel 
+  //view the elevator on the big box
   camera {
-      location <-27, 30, 115>
-      look_at WOBBEL_1_LOCATION
+      //assuming we render till Final_Clock=50
+      location <50 + 2 * clock, 40, 315>
+      look_at ELEVATOR_LOC
       angle 60
   }
   #break
@@ -174,13 +180,21 @@ plane { y, 0
   pigment{color<0.6,0.3,0.9>}
 }
 
-// declare the drone and the main character (the stick man) which will be chased by the drone through our world.
-object{drone rotate<0, 180,0> translate<0, 5, 0> scale 0.5 Spline_Trans(Runway_max, clock*Cam_spline_movespeed, y, 0.1, 0.5)}
+//here it is decided whether to have a running man and a chasing drone or not.
+
+#if(START_SCENE = 1) 
+  // declare the drone and the main character (the stick man) which will be chased by the drone through our world.
+  object{drone rotate<0, 180,0> translate<0, 5, 0> scale 0.5 Spline_Trans(Runway_max, clock*Cam_spline_movespeed, y, 0.1, 0.5)}
 
 
-#declare Character = man_panic;
-object{Character rotate<0, 180, 0> scale 0.3 Spline_Trans(Runway_max, clock*Cam_spline_movespeed + 2, y, 0.1, 0.5)}
+  #declare Character = man_panic;
+  object{Character rotate<0, 180, 0> scale 0.3 Spline_Trans(Runway_max, clock*Cam_spline_movespeed + 2, y, 0.1, 0.5)}
+#end
 
+#if (ELEVATOR_SCENE = 1)
+//declare the man on the elevator here.
+
+#end
 
 // insert any other objects here:
 
@@ -339,9 +353,20 @@ union{
     #end // -------- end of loop
  }
 
+#if(START_SCENE = 1)
+  //place the elevator without y-increase
+  object{Elevator(ELEVATOR_LOC, 0)}
+#end 
+
+
+#if(ELEVATOR_SCENE = 1)
+  //place the elevator with height 10/50 
+  object{Elevator(ELEVATOR_LOC, 10/50)}
+#end 
+
 //rotate the big box, to make the start on that box come nearer to the end of the other spline.
 object{On_The_Big_Box scale 0.5 translate<0,0,0> rotate<0,180,0> translate<90,0,210> }
- 
+
 // Thorben's Section
 
 // Wobbels in the North
