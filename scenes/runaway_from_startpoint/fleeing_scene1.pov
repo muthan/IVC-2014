@@ -1,3 +1,4 @@
+#version 3.7
 #include "transforms.inc"
 #include "colors.inc"
 #include "../../objects/spline_macro.inc"
@@ -92,7 +93,7 @@ light_source {
 /*
  * here is the moving cam declaration | | |
  *                                    v v v
- */ //#declare CAMERA = clock_spline(clock*Cam_spline_movespeed).x;
+ */ #declare CAMERA = clock_spline(clock*Cam_spline_movespeed).x;
 
 #declare Runway_1 = spline {RunawayStraight(START_POINT.x, START_POINT.y, START_POINT.z, FIRST_RUN_LENGTH)}
 #declare Runway_2 = spline {RunawayXCurve(START_POINT.x, SECOND_RUN_CURVE,  START_POINT.y, FIRST_RUN_LENGTH, SECOND_RUN_LENGTH)}
@@ -218,6 +219,7 @@ box {
   pigment {BOX_COLOR}
 }
 
+
 //arrange balls on the first box, BOX_1
 #declare Z_delay_ball = 0;   
 #while (Z_delay_ball < BOX_1_END.z)
@@ -278,14 +280,27 @@ box {
   <-115,0,120>, <-125,20,150>
   material{Wall_mat}
 }
-
-
 box { 
   <-103,0,150>, <-120,20,160>
   material{Wall_mat}
 }
 
+//inside the curve
+box { 
+  <-80,0,130>, <-90,25,145>
+  material{Wall_mat scale 2 }
+}
 
+//the addition of 0.001 to the divisor clock avoids devision by zero:
+object { Fancy_Pillar_basic_top scale 1*GENERAL_SCALE translate<0,0,0> translate<-65,-7*clock/(clock+0.001),125>}
+object { Fancy_Pillar_basic_top scale 1*GENERAL_SCALE translate<0,0,0> translate<-72,-7*clock/(clock+0.001),135>}
+object { Fancy_Pillar_basic_top scale 1*GENERAL_SCALE translate<0,0,0> translate<-76,-7*clock/(clock+0.001),124>}
+object { Fancy_Pillar_basic_top scale 1*GENERAL_SCALE translate<0,0,0> translate<-85,-7*clock/(clock+0.001),151>}
+object { Fancy_Pillar_basic_top scale 1*GENERAL_SCALE translate<0,0,0> translate<-85,-7*clock/(clock+0.001),122>}
+object { Fancy_Pillar_basic_top scale 1*GENERAL_SCALE translate<0,0,0> translate<-95,-7*clock/(clock+0.001),122>}
+object { Fancy_Pillar_basic_top scale 1*GENERAL_SCALE translate<0,0,0> translate<-95,-7*clock/(clock+0.001),137>}
+
+// lights on the runway
 #macro light_blob(position, col)
 light_source {<0,2,0> color col Spline_Trans(Runway_max, position, y, 0.1, 0.5)
   looks_like {
