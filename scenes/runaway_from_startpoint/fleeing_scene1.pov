@@ -53,7 +53,7 @@ light_source {
 #declare BOX_COLOR = color rgb< 0, 0.8, 0.3>;
 #declare GENERAL_SCALE = 2;
 #declare RUNWAY_ALIGN_DIST = 5;
-#declare ELEVATOR_LOC = <76,0.2,210>;
+#declare ELEVATOR_LOC = <76,0,210>;
 
 //Select the camera here:
 
@@ -352,8 +352,14 @@ union{
     #end // -------- end of loop
  }
 
+#if(START_SCENE = 1)
+  //place the elevator without y-increase
+  object{Elevator(ELEVATOR_LOC, 0)}
+#end 
+
+
 #if(ELEVATOR_SCENE = 1)
-  //place the elevator
+  //place the elevator with height 10/50 
   object{Elevator(ELEVATOR_LOC, 10/50)}
 #end 
 
