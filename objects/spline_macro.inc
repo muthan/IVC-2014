@@ -59,7 +59,7 @@ cubic_spline
     0.20, < 0.20, max_Y, z_end +  0.08 * distortion_grade>,
     0.25, < 0.250, max_Y, z_end +  0.025 * distortion_grade>,
     0.30, < 0.30, max_Y, z_end +  -0.03 * distortion_grade>,
-    0.35, < 0.350 max_Y, z_end +  -0.07 * distortion_grade>,
+    0.35, < 0.350 max_Y, z_end +  -0.05 * distortion_grade>,
     0.40, < 0.40, max_Y, z_end +  -0.04 * distortion_grade>,
     0.45, < 0.45, max_Y, z_end +  -0.01 * distortion_grade>,
     0.50, < max_X / 2, max_Y, z_end>,
