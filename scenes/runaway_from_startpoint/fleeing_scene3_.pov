@@ -32,22 +32,22 @@ light_source {
 #declare BOX_3_START = <-3,0.1,45>;
 #declare BOX_3_END = <-10,0.1,50>;
 
-#declare WOBBEL_1_LOCATION = <-27, 0, 117>;
-#declare WOBBEL_2_LOCATION = <40,0,260>;
+#declare WOBBEL_1_LOCATION = <-27, 5, 117>;
+#declare WOBBEL_2_LOCATION = <40,5,260>;
 #declare WOBBEL_3_LOCATION = <40,15,260>;
 #declare WOBBEL_4_LOCATION = <0,15,190>;
 #declare WOBBEL_5_LOCATION = <10,10,190>;
-#declare WOBBEL_6_LOCATION = <10,0,190>;
-#declare WOBBEL_7_LOCATION = <-10,0,190>;
+#declare WOBBEL_6_LOCATION = <10,5,190>;
+#declare WOBBEL_7_LOCATION = <-10,5,190>;
 #declare WOBBEL_8_LOCATION = <-10,10,190>;
 #declare WOBBEL_9_LOCATION = <0,15,180>;
 #declare WOBBEL_10_LOCATION = <10,10,180>;
-#declare WOBBEL_11_LOCATION = <10,0,180>;
-#declare WOBBEL_12_LOCATION = <-10,0,180>;
+#declare WOBBEL_11_LOCATION = <10,5,180>;
+#declare WOBBEL_12_LOCATION = <-10,5,180>;
 #declare WOBBEL_13_LOCATION = <-10,10,180>;
-#declare WOBBEL_14_LOCATION = <50,0,300>;
-#declare WOBBEL_15_LOCATION = <60,0,310>;
-#declare WOBBEL_16_LOCATION = <70,0,320>;
+#declare WOBBEL_14_LOCATION = <50,5,300>;
+#declare WOBBEL_15_LOCATION = <60,5,310>;
+#declare WOBBEL_16_LOCATION = <70,5,320>;
 
 #declare FIRST_RUN_LENGTH = 40;
 #declare SECOND_RUN_LENGTH = 80;
