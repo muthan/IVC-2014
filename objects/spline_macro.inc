@@ -3,7 +3,9 @@
 // provided parameters have to be: max_Y >= 40, max_Z >= 370 and x_Distotion < max_X
 #macro CurvedSpline(max_X, max_Y, max_Z, x_Distortion)
 natural_spline
-    0.15, < (max_X / 2) + x_Distortion, max_Y, 0.0>,
+    -0.05, < (max_X / 2), max_Y, -5.0>,
+    0.00, < (max_X / 2), max_Y, 0.0>,
+    0.15, < (max_X / 2) + x_Distortion, max_Y, 6.0>,
     0.20, < (max_X / 2) + x_Distortion, max_Y, 12.0>,
     0.25, < (max_X / 2) + x_Distortion, max_Y, 28.0>,
     0.30, < (max_X / 2) - x_Distortion, max_Y, 50.0>,
@@ -26,7 +28,8 @@ natural_spline
 // mostly the same spline as CurvedSpline but with a small y distortion somewhere in the middle ("jump")
 #macro CurvedSplineJump(max_X, max_Y, max_Z, x_Distortion)
 natural_spline
-    0.15, < (max_X / 2) + x_Distortion, max_Y, 0.0>,
+    0.00, < (max_X / 2), max_Y, 0.0>,
+    0.15, < (max_X / 2) + x_Distortion, max_Y, 6.0>,
     0.20, < (max_X / 2) + x_Distortion, max_Y, 12.0>,
     0.25, < (max_X / 2) + x_Distortion, max_Y, 28.0>,
     0.30, < (max_X / 2) - x_Distortion, max_Y, 50.0>,
@@ -59,56 +62,38 @@ cubic_spline
     0.20, < 0.20, max_Y, z_end +  0.08 * distortion_grade>,
     0.25, < 0.250, max_Y, z_end +  0.025 * distortion_grade>,
     0.30, < 0.30, max_Y, z_end +  -0.03 * distortion_grade>,
-    0.35, < 0.350 max_Y, z_end +  -0.07 * distortion_grade>,
+    0.35, < 0.350 max_Y, z_end +  -0.05 * distortion_grade>,
     0.40, < 0.40, max_Y, z_end +  -0.04 * distortion_grade>,
     0.45, < 0.45, max_Y, z_end +  -0.01 * distortion_grade>,
     0.50, < max_X / 2, max_Y, z_end>,
     1.55, < max_X / 2, max_Y, z_end>
 #end
 
-// only xpands in z-direction, plain straight spline
-#macro RunawayStraight(x_loc, y_loc, z_loc, max_Z)
-natural_spline
-    0.00, <x_loc, y_loc, z_loc>,
-    0.50, <x_loc, y_loc, (max_Z / 2)>, 
-    1.00, <x_loc, y_loc, max_Z>
-#end
-
-// expands in x- and z-direction, results in a curve
-#macro RunawayXCurve(x_loc, max_X, y_loc, z_loc, max_Z)
-natural_spline
-    0.00, <x_loc, y_loc, z_loc>,
-    0.50, <max_X /2, y_loc, (max_Z / 2)>, 
-    1.00, <max_X, y_loc, max_Z>
-#end
-
-
-
 
 // this spline is like a spiral in y direction
 #macro TornadoUpwardsSpline(x_loc, start_Y, max_Y, z_loc, spiral_radius)
 natural_spline
     0.500, <x_loc, start_Y, z_loc>,
-    0.525, <x_loc + spiral_radius, start_Y + (max_Y-start_Y) / 20 * 0.5, z_loc + spiral_radius>,
-    0.550, <x_loc - spiral_radius, start_Y + (max_Y-start_Y) / 20 * 1, z_loc + spiral_radius>,
-    0.575, <x_loc - spiral_radius, start_Y + (max_Y-start_Y) / 20 * 1.5, z_loc - spiral_radius>,
-    0.600, <x_loc + spiral_radius, start_Y + (max_Y-start_Y) / 20 * 2, z_loc - spiral_radius>,
-    0.625, <x_loc + spiral_radius, start_Y + (max_Y-start_Y) / 20 * 2.5, z_loc + spiral_radius>,
-    0.650, <x_loc - spiral_radius, start_Y + (max_Y-start_Y) / 20 * 3, z_loc + spiral_radius>,
-    0.675, <x_loc - spiral_radius, start_Y + (max_Y-start_Y) / 20 * 3.75, z_loc - spiral_radius>,
-    0.700, <x_loc + spiral_radius, start_Y + (max_Y-start_Y) / 20 * 4.5, z_loc - spiral_radius>,
-    0.725, <x_loc + spiral_radius, start_Y + (max_Y-start_Y) / 20 * 5.25, z_loc + spiral_radius>,
-    0.750, <x_loc - spiral_radius, start_Y + (max_Y-start_Y) / 20 * 6, z_loc + spiral_radius>, 
-    0.775, <x_loc - spiral_radius, start_Y + (max_Y-start_Y) / 20 * 7, z_loc - spiral_radius>,
-    0.800, <x_loc + spiral_radius, start_Y + (max_Y-start_Y) / 20 * 8, z_loc - spiral_radius>,
-    0.825, <x_loc + spiral_radius, start_Y + (max_Y-start_Y) / 20 * 9, z_loc + spiral_radius>,
+    0.525, <x_loc + spiral_radius, start_Y + (max_Y-start_Y) / 20 * 0.1, z_loc + spiral_radius>,
+    0.550, <x_loc - spiral_radius, start_Y + (max_Y-start_Y) / 20 * 0.2, z_loc + spiral_radius>,
+    0.575, <x_loc - spiral_radius, start_Y + (max_Y-start_Y) / 20 * 0.3, z_loc - spiral_radius>,
+    0.600, <x_loc + spiral_radius, start_Y + (max_Y-start_Y) / 20 * 0.5, z_loc - spiral_radius>,
+    0.625, <x_loc + spiral_radius, start_Y + (max_Y-start_Y) / 20 * 0.8, z_loc + spiral_radius>,
+    0.650, <x_loc - spiral_radius, start_Y + (max_Y-start_Y) / 20 * 1.2, z_loc + spiral_radius>,
+    0.675, <x_loc - spiral_radius, start_Y + (max_Y-start_Y) / 20 * 1.8, z_loc - spiral_radius>,
+    0.700, <x_loc + spiral_radius, start_Y + (max_Y-start_Y) / 20 * 2.5, z_loc - spiral_radius>,
+    0.725, <x_loc + spiral_radius, start_Y + (max_Y-start_Y) / 20 * 3.5, z_loc + spiral_radius>,
+    0.750, <x_loc - spiral_radius, start_Y + (max_Y-start_Y) / 20 * 4.5, z_loc + spiral_radius>, 
+    0.775, <x_loc - spiral_radius, start_Y + (max_Y-start_Y) / 20 * 5.5, z_loc - spiral_radius>,
+    0.800, <x_loc + spiral_radius, start_Y + (max_Y-start_Y) / 20 * 7, z_loc - spiral_radius>,
+    0.825, <x_loc + spiral_radius, start_Y + (max_Y-start_Y) / 20 * 8.5, z_loc + spiral_radius>,
     0.850, <x_loc - spiral_radius, start_Y + (max_Y-start_Y) / 20 * 10, z_loc + spiral_radius>, 
-    0.875, <x_loc - spiral_radius, start_Y + (max_Y-start_Y) / 20 * 11, z_loc - spiral_radius>,
-    0.900, <x_loc + spiral_radius, start_Y + (max_Y-start_Y) / 20 * 12, z_loc - spiral_radius>,
-    0.925, <x_loc + spiral_radius, start_Y + (max_Y-start_Y) / 20 * 14, z_loc + spiral_radius>,
-    0.950, <x_loc - spiral_radius, start_Y + (max_Y-start_Y) / 20 * 16, z_loc + spiral_radius>,
-    0.975, <x_loc - spiral_radius, start_Y + (max_Y-start_Y) / 20 * 18, z_loc - spiral_radius>,
-    1.00, <x_loc + spiral_radius, start_Y + (max_Y-start_Y) / 20 * 20, z_loc + spiral_radius> //in the middle again
+    0.875, <x_loc - spiral_radius, start_Y + (max_Y-start_Y) / 20 * 12, z_loc - spiral_radius>,
+    0.900, <x_loc + spiral_radius, start_Y + (max_Y-start_Y) / 20 * 15, z_loc - spiral_radius>,
+    0.925, <x_loc + spiral_radius, start_Y + (max_Y-start_Y) / 20 * 19, z_loc + spiral_radius>,
+    0.950, <x_loc - spiral_radius, start_Y + (max_Y-start_Y) / 20 * 24, z_loc + spiral_radius>,
+    0.975, <x_loc - spiral_radius, start_Y + (max_Y-start_Y) / 20 * 30, z_loc - spiral_radius>,
+    1.00, <x_loc + spiral_radius, start_Y + (max_Y-start_Y) / 20 * 35, z_loc + spiral_radius> //in the middle again
 #end
 
 /**

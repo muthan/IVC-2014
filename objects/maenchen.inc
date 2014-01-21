@@ -9,7 +9,7 @@
 #declare bodyR = 0.25;
 #declare limbR = 0.23;
 #declare ampleg = 40;
-#declare amparm = 20;
+#declare amparm = 40;
 
 // Es sind folgende Maennchen vorhanden
 //
