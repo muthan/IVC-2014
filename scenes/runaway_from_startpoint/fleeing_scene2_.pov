@@ -362,21 +362,6 @@ object{light_blob(50, Yellow)}
 object{light_blob(52, Blue)}
 object{light_blob(54, White)}
 
- 
-//visualize the runway
-
-union{
-  #local i = 0;     // start
-  #local end_index = 100;  // end
-  #while (i <= end_index)
-    sphere{ <0,0,0>, 0.2
-      pigment{ color rgb<1,0.3,0>}
-      translate Runway_max(i)
-    } 
-    #local i = i + 0.0005;
-    #end // -------- end of loop
- }
-
 #if(START_SCENE = 1)
   //place the elevator without y-increase
   object{Elevator(ELEVATOR_LOC, 0)}
