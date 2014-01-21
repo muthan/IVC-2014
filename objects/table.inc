@@ -1,26 +1,31 @@
-#local H = 0.5;	// height
-#local W = 1.0;	// width
-#local D = 0.6; // depth
-#local R = 0.015;// thickness
+#include "woods.inc"
+#local HEIGHT = 0.5;
+#local WIDTH = 1.0;
+#local DEPTH = 0.6;
+#local THICKNESS = 0.015;
 
-#declare table_leg = box{<-R,0,-R>,<R,H,R>}
+#declare table_leg = box{<-THICKNESS,0,-THICKNESS>,<THICKNESS,HEIGHT,THICKNESS>}
 
 #declare Table = union{
   object{ table_leg
-    translate< W/2-R,0,-D/2+R>
+    translate< WIDTH/2-THICKNESS,0,-DEPTH/2+THICKNESS>
   }
   object{ table_leg
-    translate< W/2-R,0, D/2-R>
+    translate< WIDTH/2-THICKNESS,0, DEPTH/2-THICKNESS>
   }
   object{ table_leg
-    translate<-W/2+R,0, D/2-R>
+    translate<-WIDTH/2+THICKNESS,0, DEPTH/2-THICKNESS>
   }
   object{ table_leg
-    translate<-W/2+R,0,-D/2+R>
+    translate<-WIDTH/2+THICKNESS,0,-DEPTH/2+THICKNESS>
   }
 
-  box{ <-W/2,-0.025,-D/2>,<W/2,0,D/2>
-       translate<0,H,0> }
+  box{ <-WIDTH/2,-0.025,-DEPTH/2>,<WIDTH/2,0,DEPTH/2>
+       translate<0,HEIGHT,0> }
 
-  pigment{ color rgb<0.75,0.5,0.3>*0.3}
+  pigment{ DMFWood5 scale 0.1 translate <0,90,0> } //color rgb<0.75,0.5,0.3>*0.3}
+  //DMFWood5
+  //DarkWood
+  //Rosewood
+
 }
