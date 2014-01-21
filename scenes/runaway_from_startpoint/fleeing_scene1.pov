@@ -19,6 +19,8 @@ light_source {
 
 #declare START_SCENE = 0;
 #declare ELEVATOR_SCENE = 1;
+#declare END_SCENE = 0;
+#declare FALL_SCENE = 0;
 
 // edit all constants here, this are mainly the object locations.
 // so if specific objects shall be seated somewhere else, edit that here!
@@ -54,6 +56,8 @@ light_source {
 #declare GENERAL_SCALE = 2;
 #declare RUNWAY_ALIGN_DIST = 5;
 #declare ELEVATOR_LOC = <76,0,210>;
+#declare HEIGHT = 19/50;
+#declare BIG_BOX_LOCATION = <90,0,210>;
 
 //Select the camera here:
 
@@ -64,9 +68,10 @@ light_source {
 #declare CAMERA_5 = 5; // view the startpoint (static cam)
 #declare CAMERA_6 = 6; // view the elevator (moving cam)
 #declare CAMERA_7 = 7; // view the first curve in the runway
+#declare CAMERA_8 = 8; // on the big box
 
 
-#declare CAMERA =  6; // if you use this, dont forget to comment out the moving cam below! 
+#declare CAMERA =  CAMERA_8; // if you use this, dont forget to comment out the moving cam below! 
 
 #declare clock_spline = spline {
   //only makes sense to use moving cams here!
@@ -101,8 +106,6 @@ light_source {
  */
 //#declare CAMERA = clock_spline(clock*Cam_spline_movespeed).x;
 
-#declare Runway_1 = spline {RunawayStraight(START_POINT.x, START_POINT.y, START_POINT.z, FIRST_RUN_LENGTH)}
-#declare Runway_2 = spline {RunawayXCurve(START_POINT.x, SECOND_RUN_CURVE,  START_POINT.y, FIRST_RUN_LENGTH, SECOND_RUN_LENGTH)}
 
 #declare Cam_Drone_View = spline {RunawayLongEven(START_POINT.x, START_POINT.y + 2, START_POINT.z, GENERAL_SCALE)}
 #declare Cam_Behind_Drone_View = spline {RunawayLongEven(START_POINT.x, START_POINT.y + 4, START_POINT.z, GENERAL_SCALE)}
@@ -114,8 +117,8 @@ light_source {
 
 
 #declare Runway_max = spline {RunawayLongEven(START_POINT.x, START_POINT.y, START_POINT.z, GENERAL_SCALE)}
-#declare Runway_right_align = spline {RunawayLongEven(START_POINT.x + RUNWAY_ALIGN_DIST, START_POINT.y, START_POINT.z, GENERAL_SCALE)}
-
+#declare Runway_on_the_big_box = spline {CurvedSplineJump(ELEVATOR_LOC.x + 5, ELEVATOR_LOC.y, ELEVATOR_LOC.z, 3)}
+#declare Cam_on_the_big_box_Behind_Drone =spline {CurvedSplineJump(ELEVATOR_LOC.x + 5, ELEVATOR_LOC.y, ELEVATOR_LOC.z, 0)}
 
 //take the camera which has been declared above:
 #switch(CAMERA)
@@ -158,8 +161,8 @@ light_source {
   //view the elevator on the big box
   camera {
       //assuming we render till Final_Clock=50
-      location <50 + 2 * clock, 40, 315>
-      look_at ELEVATOR_LOC
+      location <60 + 0.5 * clock, 10 + 2/5 * clock, 250>
+      look_at <ELEVATOR_LOC.x, ELEVATOR_LOC.y + HEIGHT * clock, ELEVATOR_LOC.z>
       angle 60
   }
   #break
@@ -168,6 +171,14 @@ light_source {
   camera {
       location <-10, 35, 100>
       look_at <-10, 3, 10>
+      angle 60
+  }
+  #break
+#case(CAMERA_8)
+  //for viewing the first curve.
+  camera {
+      location Cam_on_the_big_box_Behind_Drone(clock * Cam_spline_movespeed -0.05)
+      look_at Runway_on_the_big_box(clock * Cam_spline_movespeed + 1)
       angle 60
   }
   #break
@@ -192,8 +203,21 @@ plane { y, 0
 #end
 
 #if (ELEVATOR_SCENE = 1)
-//declare the man on the elevator here.
+  //declare the man on the elevator and the waiting drone
+  object{drone rotate<0, 10,0> translate<0, 5, 0> scale 0.5 translate Runway_max(99.8)}
 
+
+  #declare Character = man_lookup_no_movement;
+  object{Character rotate<0, 10, 0> scale 0.3 translate <ELEVATOR_LOC.x + 5, ELEVATOR_LOC.y + HEIGHT * clock, ELEVATOR_LOC.z>}
+#end
+
+#if (END_SCENE = 1)
+  //declare the man on big box
+  object{drone rotate<0, 180,0> translate<0, 5, 0> scale 0.5 Spline_Trans(Runway_on_the_big_box, clock*Cam_spline_movespeed, y, 0.1, 0.5)}
+
+
+  #declare Character = man_panic;
+  object{Character rotate<0, 180, 0> scale 0.3 Spline_Trans(Runway_on_the_big_box, clock*Cam_spline_movespeed + 2, y, 0.1, 0.5)}
 #end
 
 // insert any other objects here:
@@ -361,11 +385,11 @@ union{
 
 #if(ELEVATOR_SCENE = 1)
   //place the elevator with height 
-  object{Elevator(ELEVATOR_LOC, 19/50)}
+  object{Elevator(ELEVATOR_LOC, HEIGHT)}
 #end 
 
 //rotate the big box, to make the start on that box come nearer to the end of the other spline.
-object{On_The_Big_Box scale 0.5 translate<0,0,0> rotate<0,180,0> translate<90,0,210> }
+object{On_The_Big_Box scale 0.5 translate<0,0,0> rotate<0,180,0> translate BIG_BOX_LOCATION }
 
 // Thorben's Section
 
