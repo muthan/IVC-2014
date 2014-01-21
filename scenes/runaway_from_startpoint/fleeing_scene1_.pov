@@ -17,8 +17,8 @@ light_source {
   <-100, 300, -500> White
 }
 
-#declare START_SCENE = 0;
-#declare ELEVATOR_SCENE = 1;
+#declare START_SCENE = 1;
+#declare ELEVATOR_SCENE = 0;
 #declare END_SCENE = 0;
 #declare FALL_SCENE = 0;
 
@@ -71,7 +71,7 @@ light_source {
 #declare CAMERA_8 = 8; // on the big box
 
 
-#declare CAMERA =  CAMERA_8; // if you use this, dont forget to comment out the moving cam below! 
+//#declare CAMERA =  CAMERA_6; // if you use this, dont forget to comment out the moving cam below
 
 #declare clock_spline = spline {
   //only makes sense to use moving cams here!
@@ -104,7 +104,7 @@ light_source {
  * here is the moving cam declaration | | |
  *                                    v v v
  */
-//#declare CAMERA = clock_spline(clock*Cam_spline_movespeed).x;
+#declare CAMERA = clock_spline(clock*Cam_spline_movespeed).x;
 
 
 #declare Cam_Drone_View = spline {RunawayLongEven(START_POINT.x, START_POINT.y + 2, START_POINT.z, GENERAL_SCALE)}
@@ -117,8 +117,8 @@ light_source {
 
 
 #declare Runway_max = spline {RunawayLongEven(START_POINT.x, START_POINT.y, START_POINT.z, GENERAL_SCALE)}
-#declare Runway_on_the_big_box = spline {CurvedSplineJump(ELEVATOR_LOC.x + 5, ELEVATOR_LOC.y, ELEVATOR_LOC.z, 3)}
-#declare Cam_on_the_big_box_Behind_Drone =spline {CurvedSplineJump(ELEVATOR_LOC.x + 5, ELEVATOR_LOC.y, ELEVATOR_LOC.z, 0)}
+#declare Runway_on_the_big_box = spline {CurvedSplineJump(ELEVATOR_LOC.x * 2 + 6, ELEVATOR_LOC.y + HEIGHT * 50 + 1, ELEVATOR_LOC.z, ELEVATOR_LOC.z + 40, -1,  3)}
+#declare Cam_on_the_big_box_Behind_Drone =spline {CurvedSplineJump(ELEVATOR_LOC.x * 2 + 6, ELEVATOR_LOC.y + HEIGHT * 50 + 10, ELEVATOR_LOC.z, ELEVATOR_LOC.z + 40, -1, 0)}
 
 //take the camera which has been declared above:
 #switch(CAMERA)
@@ -177,9 +177,9 @@ light_source {
 #case(CAMERA_8)
   //for viewing the first curve.
   camera {
-      location Cam_on_the_big_box_Behind_Drone(clock * Cam_spline_movespeed -0.05)
-      look_at Runway_on_the_big_box(clock * Cam_spline_movespeed + 1)
-      angle 60
+      location Cam_on_the_big_box_Behind_Drone(clock -0.05)
+      //look_at <76, 20, 100>
+      look_at Runway_on_the_big_box(clock + 0.05)
   }
   #break
 
@@ -213,11 +213,11 @@ plane { y, 0
 
 #if (END_SCENE = 1)
   //declare the man on big box
-  object{drone rotate<0, 180,0> translate<0, 5, 0> scale 0.5 Spline_Trans(Runway_on_the_big_box, clock*Cam_spline_movespeed, y, 0.1, 0.5)}
+  object{drone rotate<0, 180,0> translate<0, 3, 0> scale 0.5 Spline_Trans(Runway_on_the_big_box, clock, y, 0.1, 0.5)}
 
 
   #declare Character = man_panic;
-  object{Character rotate<0, 180, 0> scale 0.3 Spline_Trans(Runway_on_the_big_box, clock*Cam_spline_movespeed + 2, y, 0.1, 0.5)}
+  object{Character rotate<0, 180, 0> scale 0.3 Spline_Trans(Runway_on_the_big_box, clock +0.05, y, 0.1, 0.5)}
 #end
 
 // insert any other objects here:
@@ -342,7 +342,7 @@ object { Fancy_Pillar_basic_top scale 1*GENERAL_SCALE translate<0,0,0> translate
 // lights on the runway
 #macro light_blob(position, col)
 light_source {<0,2,0> color col Spline_Trans(Runway_max, position, y, 0.1, 0.5)
-  looks_like {
+  /**looks_like { 
     sphere { <0,0,0>,0.1
       texture {
         pigment {color col}
@@ -352,7 +352,7 @@ light_source {<0,2,0> color col Spline_Trans(Runway_max, position, y, 0.1, 0.5)
         }
       } 
     } 
-  } 
+  }**/ 
 }
 #end
 
