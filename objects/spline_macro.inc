@@ -3,7 +3,9 @@
 // provided parameters have to be: max_Y >= 40, max_Z >= 370 and x_Distotion < max_X
 #macro CurvedSpline(max_X, max_Y, max_Z, x_Distortion)
 natural_spline
-    0.15, < (max_X / 2) + x_Distortion, max_Y, 0.0>,
+    -0.05, < (max_X / 2), max_Y, -5.0>,
+    0.00, < (max_X / 2), max_Y, 0.0>,
+    0.15, < (max_X / 2) + x_Distortion, max_Y, 6.0>,
     0.20, < (max_X / 2) + x_Distortion, max_Y, 12.0>,
     0.25, < (max_X / 2) + x_Distortion, max_Y, 28.0>,
     0.30, < (max_X / 2) - x_Distortion, max_Y, 50.0>,
@@ -26,7 +28,8 @@ natural_spline
 // mostly the same spline as CurvedSpline but with a small y distortion somewhere in the middle ("jump")
 #macro CurvedSplineJump(max_X, max_Y, max_Z, x_Distortion)
 natural_spline
-    0.15, < (max_X / 2) + x_Distortion, max_Y, 0.0>,
+    0.00, < (max_X / 2), max_Y, 0.0>,
+    0.15, < (max_X / 2) + x_Distortion, max_Y, 6.0>,
     0.20, < (max_X / 2) + x_Distortion, max_Y, 12.0>,
     0.25, < (max_X / 2) + x_Distortion, max_Y, 28.0>,
     0.30, < (max_X / 2) - x_Distortion, max_Y, 50.0>,
@@ -65,24 +68,6 @@ cubic_spline
     0.50, < max_X / 2, max_Y, z_end>,
     1.55, < max_X / 2, max_Y, z_end>
 #end
-
-// only xpands in z-direction, plain straight spline
-#macro RunawayStraight(x_loc, y_loc, z_loc, max_Z)
-natural_spline
-    0.00, <x_loc, y_loc, z_loc>,
-    0.50, <x_loc, y_loc, (max_Z / 2)>, 
-    1.00, <x_loc, y_loc, max_Z>
-#end
-
-// expands in x- and z-direction, results in a curve
-#macro RunawayXCurve(x_loc, max_X, y_loc, z_loc, max_Z)
-natural_spline
-    0.00, <x_loc, y_loc, z_loc>,
-    0.50, <max_X /2, y_loc, (max_Z / 2)>, 
-    1.00, <max_X, y_loc, max_Z>
-#end
-
-
 
 
 // this spline is like a spiral in y direction

@@ -8,7 +8,7 @@
     box {
         <0,0,0> <10, 1, 10>
         translate <ELEVATOR_LOC.x, ELEVATOR_LOC.y + clock * (ELEVATOR_LOC.y + height), ELEVATOR_LOC.z>
-        texture { Chrome_Metal }
+        texture { Bright_Bronze }
         hollow
     }
 #end
