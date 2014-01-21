@@ -208,7 +208,7 @@ plane { y, 0
 
 
   #declare Character = man_lookup_no_movement;
-  object{Character rotate<0, 10, 0> scale 0.3 translate <ELEVATOR_LOC.x + 5, ELEVATOR_LOC.y + HEIGHT * clock, ELEVATOR_LOC.z>}
+  object{Character rotate<0, 10, 0> scale 0.3 translate <ELEVATOR_LOC.x + 5, ELEVATOR_LOC.y + HEIGHT * clock + 1, ELEVATOR_LOC.z>}
 #end
 
 #if (END_SCENE = 1)
