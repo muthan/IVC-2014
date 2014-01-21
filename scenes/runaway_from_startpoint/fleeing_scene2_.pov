@@ -189,6 +189,7 @@ light_source {
 // The ground. 
 plane { y, 0 
   pigment{color<0.6,0.3,0.9>}
+  translate <0,0.2,0>
 }
 
 //here it is decided whether to have a running man and a chasing drone or not.
