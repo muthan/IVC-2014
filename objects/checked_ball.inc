@@ -14,5 +14,5 @@ sphere{<0,0,0>,2
                        diffuse 0.85
                        phong 1}
               }
-        rotate<0, 36000*clock, 0>
+        rotate<0, 360*clock, 0>
        }
