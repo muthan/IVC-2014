@@ -62,7 +62,7 @@ box {
 #declare Wire_Radius = 0.4;// radius
 #declare Street_x_Distortion = 3;
 
-object{Running_Loop2 translate<BOX_WIDTH / 2 + 8, BOX_HEIGHT +5, BOX_LENGTH/2 + 10>}
+object{Running_Loop2 scale 1.3 translate<BOX_WIDTH / 2 + 8, BOX_HEIGHT +5, BOX_LENGTH/2 + 10>}
 
 };
 
