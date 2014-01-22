@@ -25,6 +25,8 @@ light_source {
 // edit all constants here, this are mainly the object locations.
 // so if specific objects shall be seated somewhere else, edit that here!
 
+#declare clock_elevator = clock*50;
+
 #declare START_POINT = <0,0.1,0>;
 #declare BOX_1_END = <3,0.1,9>;
 #declare BOX_2_START = <-28,0.1,56>;
@@ -161,8 +163,8 @@ light_source {
   //view the elevator on the big box
   camera {
       //assuming we render till Final_Clock=50
-      location <60 + 0.5 * clock, 10 + 2/5 * clock, 250>
-      look_at <ELEVATOR_LOC.x, ELEVATOR_LOC.y + HEIGHT * clock, ELEVATOR_LOC.z>
+      location <60 + 0.5 * clock_elevator, 10 + 2/5 * clock_elevator, 250>
+      look_at <ELEVATOR_LOC.x, ELEVATOR_LOC.y + HEIGHT * clock_elevator, ELEVATOR_LOC.z>
       angle 60
   }
   #break
@@ -209,7 +211,7 @@ plane { y, 0
 
 
   #declare Character = man_lookup_no_movement;
-  object{Character rotate<0, 10, 0> scale 0.3 translate <ELEVATOR_LOC.x + 5, ELEVATOR_LOC.y + HEIGHT * clock + 1, ELEVATOR_LOC.z>}
+  object{Character rotate<0, 10, 0> scale 0.3 translate <ELEVATOR_LOC.x + 5, ELEVATOR_LOC.y + HEIGHT * clock_elevator + 1, ELEVATOR_LOC.z + 5>}
 #end
 
 #if (END_SCENE = 1)
