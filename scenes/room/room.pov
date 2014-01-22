@@ -49,7 +49,7 @@ union {
   }
 
   object { red_pencil
-          scale 0.001
+          scale 0.004
           rotate <0, 225, 0>
           translate <0.65, 0.5+0.002, -0.15>
   }

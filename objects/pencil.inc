@@ -1,7 +1,8 @@
 #include "colors.inc"
 #include "woods.inc"
+#include "textures.inc"
 
-#declare red_pencil= union{
+#declare red_pencil = union{
 	cylinder{
 		<0,0,0>, <40,0,0>, 1
 		texture { pigment { Red } }
