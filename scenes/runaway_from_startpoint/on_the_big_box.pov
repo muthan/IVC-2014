@@ -18,14 +18,12 @@ light_source {
 }
 
 #declare START_SCENE = 0;
-#declare ELEVATOR_SCENE = 1;
-#declare END_SCENE = 0;
+#declare ELEVATOR_SCENE = 0;
+#declare END_SCENE = 1;
 #declare FALL_SCENE = 0;
 
 // edit all constants here, this are mainly the object locations.
 // so if specific objects shall be seated somewhere else, edit that here!
-
-#declare clock_elevator = clock*50;
 
 #declare START_POINT = <0,0.1,0>;
 #declare BOX_1_END = <3,0.1,9>;
@@ -69,11 +67,12 @@ light_source {
 #declare CAMERA_4 = 4; // view whole world (static cam)
 #declare CAMERA_5 = 5; // view the startpoint (static cam)
 #declare CAMERA_6 = 6; // view the elevator (moving cam)
-#declare CAMERA_7 = 7; // view the first curve in the runway
-#declare CAMERA_8 = 8; // on the big box
+#declare CAMERA_7 = 7; // view the first curve in the runway (static cam)
+#declare CAMERA_8 = 8; // on the big box (moving cam)
+#declare CAMERA_9 = 9; // last falling scene (moving cam)
 
 
-#declare CAMERA =  CAMERA_6; // if you use this, dont forget to comment out the moving cam below
+#declare CAMERA =  CAMERA_8; // if you use this, dont forget to comment out the moving cam below
 
 #declare clock_spline = spline {
   //only makes sense to use moving cams here!
@@ -98,7 +97,7 @@ light_source {
 // use this  offset if rendered with Final_Clock=XXX, to always get a match of clock*Cam_spline_movespeed = 100!!!
 // calculate and set it here _before_ u render.
 // else wise use 100 when normal clock (==1) is used.
-#declare Cam_spline_movespeed = 2; // render with final clock = 50
+#declare Cam_spline_movespeed = 1; // render with final clock = 50
 
 //this kinda rapes the intention of splines, but hey..!
 // takes the spline val calculated with the clock as parameter, which will then return a vector containing the wanted camera number.
@@ -120,7 +119,7 @@ light_source {
 
 #declare Runway_max = spline {RunawayLongEven(START_POINT.x, START_POINT.y, START_POINT.z, GENERAL_SCALE)}
 #declare Runway_on_the_big_box = spline {CurvedSplineJump(ELEVATOR_LOC.x * 2 + 6, ELEVATOR_LOC.y + HEIGHT * 50 + 1, ELEVATOR_LOC.z, ELEVATOR_LOC.z + 40, -1,  3)}
-#declare Cam_on_the_big_box_Behind_Drone =spline {CurvedSplineJump(ELEVATOR_LOC.x * 2 + 6, ELEVATOR_LOC.y + HEIGHT * 50 + 10, ELEVATOR_LOC.z, ELEVATOR_LOC.z + 40, -1, 0)}
+#declare Cam_On_The_big_box =spline {CurvedSplineJump(ELEVATOR_LOC.x * 2 + 6, ELEVATOR_LOC.y + HEIGHT * 50 + 10, ELEVATOR_LOC.z, ELEVATOR_LOC.z + 40, -1, 0)}
 
 //take the camera which has been declared above:
 #switch(CAMERA)
@@ -163,13 +162,13 @@ light_source {
   //view the elevator on the big box
   camera {
       //assuming we render till Final_Clock=50
-      location <60 + 0.5 * clock_elevator, 10 + 2/5 * clock_elevator, 250>
-      look_at <ELEVATOR_LOC.x, ELEVATOR_LOC.y + HEIGHT * clock_elevator, ELEVATOR_LOC.z>
+      location <60 + 0.5 * clock, 10 + 2/5 * clock, 250>
+      look_at <ELEVATOR_LOC.x, ELEVATOR_LOC.y + HEIGHT * clock, ELEVATOR_LOC.z>
       angle 60
   }
   #break
 #case(CAMERA_7)
-  //for viewing the first curve.
+//for viewing the first curve.
   camera {
       location <-10, 35, 100>
       look_at <-10, 3, 10>
@@ -177,11 +176,22 @@ light_source {
   }
   #break
 #case(CAMERA_8)
-  //for viewing the first curve.
+  //on the big box
   camera {
-      location Cam_on_the_big_box_Behind_Drone(clock -0.05)
-      //look_at <76, 20, 100>
+    #if(clock < 0.45)
+      location Cam_On_The_big_box(clock -0.1)
       look_at Runway_on_the_big_box(clock + 0.05)
+    #else 
+      location Cam_On_The_big_box(clock +0.1)
+      look_at Runway_on_the_big_box(clock - 0.02)
+    #end
+  }
+  #break
+#case(CAMERA_9)
+  //last falling scene
+  camera {
+      location <120, 25 - 10 * clock, -60>
+      look_at <79, 20 - 20 * clock, -45 - 20 * clock>
   }
   #break
 
@@ -211,16 +221,59 @@ plane { y, 0
 
 
   #declare Character = man_lookup_no_movement;
-  object{Character rotate<0, 10, 0> scale 0.3 translate <ELEVATOR_LOC.x + 5, ELEVATOR_LOC.y + HEIGHT * clock_elevator + 1, ELEVATOR_LOC.z + 5>}
+  object{Character rotate<0, 10, 0> scale 0.3 translate <ELEVATOR_LOC.x + 5, ELEVATOR_LOC.y + HEIGHT * clock + 1, ELEVATOR_LOC.z>}
 #end
 
 #if (END_SCENE = 1)
   //declare the man on big box
-  object{drone rotate<0, 180,0> translate<0, 3, 0> scale 0.5 Spline_Trans(Runway_on_the_big_box, clock, y, 0.1, 0.5)}
+  object{drone_fast rotate<0, 180,0> translate<0, 3, 0> scale 0.5 Spline_Trans(Runway_on_the_big_box, clock -0.05, y, 0.1, 0.5)}
 
 
   #declare Character = man_panic;
-  object{Character rotate<0, 180, 0> scale 0.3 Spline_Trans(Runway_on_the_big_box, clock +0.05, y, 0.1, 0.5)}
+  object{Character rotate<0, 180, 0> scale 0.3 Spline_Trans(Runway_on_the_big_box, clock, y, 0.1, 0.5)}
+#end
+
+#if (FALL_SCENE = 1)
+  //declare the man on big box
+  object{drone rotate<0, 180,0> translate<0, 3, 0> scale 0.5 Spline_Trans(Runway_on_the_big_box, 0.95, y, 0.1, 0.5)}
+
+
+  #declare Character = man_lookup_no_movement;
+  object{Character rotate<0, 180, 0> scale 0.3 translate<79, 20 - 70 * clock*clock, -40 -22*clock>}
+  //this is the one that hits him:
+  object{Fancy_Pillar_basic_top scale GENERAL_SCALE translate<79, 35 - 50 * clock*clock, -62> pigment{color rgb<0,1,0> }}
+  //many other cubes falling down:
+  object{Fancy_Pillar_basic_top scale GENERAL_SCALE translate<74, 2 + 35 - 50 * clock*clock*clock, -53> pigment{color rgb<0.3,0,1> }}
+  object{Fancy_Pillar_basic_top scale GENERAL_SCALE translate<85, -4 + 35 - 50 * clock*clock, -60> pigment{color rgb<0.2,0.5,0.9> }}
+  object{Fancy_Pillar_basic_top scale GENERAL_SCALE translate<72, -6 + 35 - 50 * clock*clock, -48> pigment{color rgb<0,1,1> }}
+  object{Fancy_Pillar_basic_top scale GENERAL_SCALE translate<76, -8 + 35 - 50 * clock*clock*clock, -51> pigment{color rgb<0.5,0.5,0.5> }}
+  object{Fancy_Pillar_basic_top scale GENERAL_SCALE translate<83, -11 + 35 - 50 * clock*clock, -59> pigment{color rgb<0.8,1,0.2> }}
+  object{Fancy_Pillar_basic_top scale GENERAL_SCALE translate<87, -9 + 35 - 50 * clock*clock*clock, -46> pigment{color rgb<0,0.3,0.7> }}
+  object{Fancy_Pillar_basic_top scale GENERAL_SCALE translate<79, 40 - 50 * clock*clock, -54> pigment{color rgb<1,0,0> }}
+  object{Fancy_Pillar_basic_top scale GENERAL_SCALE translate<74, 2 + 40 - 60 * clock*clock*clock, -56> pigment{color rgb<0,1,0> }}
+  object{Fancy_Pillar_basic_top scale GENERAL_SCALE translate<85, -4 + 40 - 60 * clock*clock, -62> pigment{color rgb<0.2,0.5,0.9> }}
+  object{Fancy_Pillar_basic_top scale GENERAL_SCALE translate<73, -6 + 40 - 60 * clock*clock, -50> pigment{color rgb<0,1,1> }}
+  object{Fancy_Pillar_basic_top scale GENERAL_SCALE translate<77, -8 + 45 - 60 * clock*clock*clock, -49> pigment{color rgb<0.5,0.1,0.5> }}
+  object{Fancy_Pillar_basic_top scale GENERAL_SCALE translate<82, -11 + 45 - 65 * clock*clock, -57> pigment{color rgb<0.8,1,0.2> }}
+  object{Fancy_Pillar_basic_top scale GENERAL_SCALE translate<85, -9 + 45 - 60 * clock*clock*clock, -47> pigment{color rgb<1,0.9,0.7> }}
+  object{Fancy_Pillar_basic_top scale GENERAL_SCALE translate<79, 35 - 100 * clock*clock, -55> pigment{color rgb<1,0,0> }}
+  object{Fancy_Pillar_basic_top scale GENERAL_SCALE translate<74, 2 + 35 - 100 * clock*clock*clock, -53> pigment{color rgb<0.3,0,1> }}
+  object{Fancy_Pillar_basic_top scale GENERAL_SCALE translate<85, -4 + 35 - 100 * clock*clock, -60> pigment{color rgb<0.2,0.5,0.9> }}
+  object{Fancy_Pillar_basic_top scale GENERAL_SCALE translate<72, -6 + 35 - 100 * clock*clock, -48> pigment{color rgb<0,1,1> }}
+  object{Fancy_Pillar_basic_top scale GENERAL_SCALE translate<76, -8 + 35 - 100 * clock*clock*clock, -51> pigment{color rgb<0.5,0.5,0.5> }}
+  object{Fancy_Pillar_basic_top scale GENERAL_SCALE translate<83, -11 + 35 - 100 * clock*clock, -59> pigment{color rgb<0.8,1,0.2> }}
+  object{Fancy_Pillar_basic_top scale GENERAL_SCALE translate<87, -9 + 35 - 100 * clock*clock*clock, -46> pigment{color rgb<0,0.3,0.7> }}
+  object{Fancy_Pillar_basic_top scale GENERAL_SCALE translate<79, 40 - 100 * clock*clock, -54> pigment{color rgb<1,0,0> }}
+  object{Fancy_Pillar_basic_top scale GENERAL_SCALE translate<74, 2 + 40 - 110 * clock*clock*clock, -56> pigment{color rgb<0,1,0> }}
+  object{Fancy_Pillar_basic_top scale GENERAL_SCALE translate<85, -4 + 40 - 110 * clock*clock, -62> pigment{color rgb<0.2,0.5,0.9> }}
+  object{Fancy_Pillar_basic_top scale GENERAL_SCALE translate<73, -6 + 40 - 110 * clock*clock, -50> pigment{color rgb<0,1,1> }}
+  object{Fancy_Pillar_basic_top scale GENERAL_SCALE translate<77, -8 + 45 - 110 * clock*clock*clock, -49> pigment{color rgb<0.5,0.1,0.5> }}
+  object{Fancy_Pillar_basic_top scale GENERAL_SCALE translate<82, -11 + 45 - 115 * clock*clock, -57> pigment{color rgb<0.8,1,0.2> }}
+  object{Fancy_Pillar_basic_top scale GENERAL_SCALE translate<85, -9 + 45 - 110 * clock*clock*clock, -47> pigment{color rgb<1,0.9,0.7> }}
+  box {
+    <79 - 14*clock, 0.21, -55 - 14*clock>, <79 + 17 * clock,-1, -55 + 15 * clock>
+    color Black 
+  }
 #end
 
 // insert any other objects here:
@@ -374,6 +427,11 @@ object{light_blob(54, White)}
 #if(ELEVATOR_SCENE = 1)
   //place the elevator with height 
   object{Elevator(ELEVATOR_LOC, HEIGHT)}
+#end 
+
+#if(END_SCENE = 1)
+  //place the elevator with height 
+  object{Elevator(<ELEVATOR_LOC.x, ELEVATOR_LOC.y + 19, ELEVATOR_LOC.z>, 0)}
 #end 
 
 //rotate the big box, to make the start on that box come nearer to the end of the other spline.

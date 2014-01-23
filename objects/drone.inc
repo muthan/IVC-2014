@@ -71,7 +71,7 @@ object{
 
 
 
-#declare drone =
+#macro Drone(blink)
 union{	 
 		object{rawdronehead
   	  	texture{Brass_Metal
@@ -85,7 +85,7 @@ union{
 		translate<0,0,0>
 	}
 
-	#if(mod(clock,2) <= 1 & mod(clock,2) > 0.5 )
+	#if(mod(clock*blink,2) <= 1 & mod(clock*blink,2) > 0.5 )
     light_source{<0,-1,0> color Red*1
       looks_like{
             sphere{ <0,0,0>,0.1
@@ -98,18 +98,20 @@ union{
            } 
      } 
     }
-  #end
-
-					
-	object{Wings
-						 		texture{
+    #end
+    object{Wings
+                texture{
                 Chrome_Metal
                 pigment{color Grey}
-								finish {phong 1 }
-						} 
-		scale<0.5,0.5,0.3>
-		translate<0,0,0>
-	}
+                finish {phong 1 }
+            } 
+    scale<0.5,0.5,0.3>
+    translate<0,0,0>
+  }
 }
+#end
+
+#declare drone = object{Drone(1)}
+#declare drone_fast = object{Drone(20)}
 
  
