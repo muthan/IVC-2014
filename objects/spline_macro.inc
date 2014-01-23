@@ -1,52 +1,35 @@
-// Creates a spline located in the middle of max_X with distortions to left and right. 
-// It rapidly grows up to max_Y and slowly grows up to max_Z
-// provided parameters have to be: max_Y >= 40, max_Z >= 370 and x_Distotion < max_X
-#macro CurvedSpline(max_X, max_Y, max_Z, x_Distortion)
+//redesigned for our camera drive:
+// runs from 0 to 1 and start in max_x/2, max_y and start_z. 
+//then the spline expands from start_z to start_z + steps_z in 10 steps, in the direction dir.
+//use 1 and -1 for positive or negative step direction
+// the x_distortion will be "randomly" applied to the spline, making it curved but still startight in z-direction.
+#macro CurvedSplineJump(max_X, max_Y, start_Z, steps_Z, dir, x_Distortion)
 natural_spline
-    -0.05, < (max_X / 2), max_Y, -5.0>,
-    0.00, < (max_X / 2), max_Y, 0.0>,
-    0.15, < (max_X / 2) + x_Distortion, max_Y, 6.0>,
-    0.20, < (max_X / 2) + x_Distortion, max_Y, 12.0>,
-    0.25, < (max_X / 2) + x_Distortion, max_Y, 28.0>,
-    0.30, < (max_X / 2) - x_Distortion, max_Y, 50.0>,
-    0.35, < (max_X / 2) - x_Distortion, max_Y, 70.0>,
-    0.40, < (max_X / 2) + x_Distortion, max_Y, 92.0>,
-    0.45, < (max_X / 2) - x_Distortion, max_Y, 120.0>,
-    0.50, < (max_X / 2) - x_Distortion, max_Y, 142.0>, 
-    0.55, < (max_X / 2) + x_Distortion, max_Y, 190.0>,
-    0.60, < (max_X / 2) - x_Distortion, max_Y, 220.0>,
-    0.65, < (max_X / 2) + x_Distortion, max_Y, 232.0>,
-    0.70, < (max_X / 2) + x_Distortion, max_Y, 260.0>,
-    0.75, < (max_X / 2) + x_Distortion, max_Y, 280.0>,
-    0.80, < (max_X / 2) - x_Distortion, max_Y, 295.0>,
-    0.85, < (max_X / 2) + x_Distortion, max_Y, 300.0>,
-    0.90, < (max_X / 2) - x_Distortion, max_Y, 340.0>,
-    0.95, < (max_X / 2) + x_Distortion, max_Y, 370.0>,
-    1.00, < (max_X / 2) - x_Distortion, max_Y, max_Z>
-#end
-
-// mostly the same spline as CurvedSpline but with a small y distortion somewhere in the middle ("jump")
-#macro CurvedSplineJump(max_X, max_Y, max_Z, x_Distortion)
-natural_spline
-    0.00, < (max_X / 2), max_Y, 0.0>,
-    0.15, < (max_X / 2) + x_Distortion, max_Y, 6.0>,
-    0.20, < (max_X / 2) + x_Distortion, max_Y, 12.0>,
-    0.25, < (max_X / 2) + x_Distortion, max_Y, 28.0>,
-    0.30, < (max_X / 2) - x_Distortion, max_Y, 50.0>,
-    0.35, < (max_X / 2) - x_Distortion, max_Y, 70.0>,
-    0.40, < (max_X / 2) + x_Distortion, max_Y, 92.0>,
-    0.45, < (max_X / 2) - x_Distortion, max_Y, 120.0>,
-    0.50, < (max_X / 2) - x_Distortion, max_Y, 142.0>, 
-    0.55, < (max_X / 2) + x_Distortion, max_Y, 190.0>,
-    0.60, < (max_X / 2) - x_Distortion, max_Y, 220.0>,
-    0.65, < (max_X / 2) + x_Distortion, max_Y, 232.0>,
-    0.70, < (max_X / 2) + x_Distortion, max_Y + 3, 260.0>, // jump!
-    0.75, < (max_X / 2) + x_Distortion, max_Y, 280.0>,
-    0.80, < (max_X / 2) - x_Distortion, max_Y, 295.0>,
-    0.85, < (max_X / 2) + x_Distortion, max_Y, 300.0>,
-    0.90, < (max_X / 2) - x_Distortion, max_Y, 340.0>,
-    0.95, < (max_X / 2) + x_Distortion, max_Y, 370.0>,
-    1.00, < (max_X / 2) - x_Distortion, max_Y, max_Z>
+    -0.10, < (max_X / 2), max_Y, start_Z - 10*dir>,
+    -0.05, < (max_X / 2), max_Y, start_Z - 5*dir>,
+    0.00, < (max_X / 2), max_Y, start_Z>,
+    0.05, < (max_X / 2) + x_Distortion, max_Y, start_Z + ( 3/100 * steps_Z) * dir>,//start at 0.00
+    0.10, < (max_X / 2) - x_Distortion, max_Y, start_Z + ( 7/100 * steps_Z) * dir>,
+    0.15, < (max_X / 2) + x_Distortion, max_Y, start_Z + ( 12/100 * steps_Z) * dir>,
+    0.20, < (max_X / 2) + x_Distortion, max_Y, start_Z + ( 20/100 * steps_Z) * dir>,
+    0.25, < (max_X / 2) - x_Distortion, max_Y, start_Z + ( 28/100 * steps_Z) * dir>,
+    0.30, < (max_X / 2) - x_Distortion, max_Y, start_Z + ( 30/100 * steps_Z) * dir>,
+    0.35, < (max_X / 2) + x_Distortion, max_Y, start_Z + ( 35/100 * steps_Z) * dir>,
+    0.40, < (max_X / 2) + x_Distortion, max_Y, start_Z + ( 38/100 * steps_Z) * dir>,
+    0.45, < (max_X / 2), max_Y, start_Z + ( 48/100 * steps_Z) * dir>,
+    0.50, < (max_X / 2), max_Y +2, start_Z + ( 50/100 * steps_Z) * dir>, 
+    0.55, < (max_X / 2), max_Y, start_Z + ( 53/100 * steps_Z) * dir>,// jump!
+    0.60, < (max_X / 2) + x_Distortion, max_Y, start_Z + ( 57/100 * steps_Z) * dir>,
+    0.65, < (max_X / 2) + x_Distortion, max_Y, start_Z + ( 60/100 * steps_Z) * dir>,
+    0.70, < (max_X / 2) - x_Distortion, max_Y, start_Z + ( 68/100 * steps_Z) * dir>, 
+    0.75, < (max_X / 2) - x_Distortion, max_Y, start_Z + ( 75/100 * steps_Z) * dir>,
+    0.80, < (max_X / 2) - x_Distortion, max_Y, start_Z + ( 80/100 * steps_Z) * dir>,
+    0.85, < (max_X / 2) + x_Distortion, max_Y, start_Z + ( 86/100 * steps_Z) * dir>,
+    0.90, < (max_X / 2) + x_Distortion, max_Y, start_Z + ( 93/100 * steps_Z) * dir>,
+    0.95, < (max_X / 2) + 1/2 * x_Distortion, max_Y, start_Z + ( 98/100 * steps_Z) * dir>,
+    1.00, < (max_X / 2), max_Y, start_Z + ( steps_Z) * dir>,// end
+    1.05, < (max_X / 2), max_Y, start_Z + ( steps_Z + 1/11 * steps_Z) * dir> 
+    1.10, < (max_X / 2), max_Y - 5, start_Z + ( steps_Z + 1/12 * steps_Z) * dir> 
 #end
 
 // Creates a spline starting at <0,max_y,0>  and then slowly grows up to max_x/2
