@@ -96,7 +96,7 @@ light_source {
 // use this  offset if rendered with Final_Clock=XXX, to always get a match of clock*Cam_spline_movespeed = 100!!!
 // calculate and set it here _before_ u render.
 // else wise use 100 when normal clock (==1) is used.
-#declare Cam_spline_movespeed = 2; // render with final clock = 50
+#declare Cam_spline_movespeed = 1; // render with final clock = 50
 
 //this kinda rapes the intention of splines, but hey..!
 // takes the spline val calculated with the clock as parameter, which will then return a vector containing the wanted camera number.
