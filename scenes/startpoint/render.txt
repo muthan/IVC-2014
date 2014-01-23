@@ -1,0 +1,1 @@
+povray +A +Q11 +W1920 +H1080 -KFI0 -KF374 Final_Clock=10 room.pov
