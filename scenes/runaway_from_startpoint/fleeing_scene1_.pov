@@ -17,10 +17,10 @@ light_source {
   <-100, 300, -500> White
 }
 
-#declare START_SCENE = 0;
+#declare START_SCENE = 1;
 #declare ELEVATOR_SCENE = 0;
 #declare END_SCENE = 0;
-#declare FALL_SCENE = 1;
+#declare FALL_SCENE = 0;
 
 // edit all constants here, this are mainly the object locations.
 // so if specific objects shall be seated somewhere else, edit that here!
@@ -105,7 +105,7 @@ light_source {
  * here is the moving cam declaration | | |
  *                                    v v v
  */
-//#declare CAMERA = clock_spline(clock*Cam_spline_movespeed).x;
+#declare CAMERA = clock_spline(clock*Cam_spline_movespeed).x;
 
 
 #declare Cam_Drone_View = spline {RunawayLongEven(START_POINT.x, START_POINT.y + 2, START_POINT.z, GENERAL_SCALE)}
