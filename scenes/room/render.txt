@@ -1,0 +1,7 @@
+# before rendering: set SCENE to START or END in room.pov
+
+# start scene
+povray +A +Q11 +W1920 +H1080 -KFI0 -KFF149 Final_Clock=1 room.pov
+
+# end scene
+povray +A +Q11 +W1920 +H1080 -KFI0 -KFF149 Final_Clock=2 room.pov
